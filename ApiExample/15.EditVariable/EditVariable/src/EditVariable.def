@@ -1,0 +1,6 @@
+LIBRARY EditVariable.dll
+
+EXPORTS
+    ; Explicit exports can go here
+    EditVariableInit
+    EditVariableExit

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧭 ZW3D 신규 API 구조 소개</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .features-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        .features-section table th,
+        .features-section table td {
+            color: #333 !important;
+            background-color: rgba(255,255,255,0.9);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .features-section table th {
+            background-color: rgba(255,255,255,0.7);
+        }
+        .module-card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .module-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .module-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .module-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        .module-description {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .header-files {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #495057;
+        }
+        .basic-module-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .basic-module-table th,
+        .basic-module-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .basic-module-table th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        .basic-module-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: 500;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+            color: #3498db;
+        }
+        .keywords-section {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        .keywords-section table th,
+        .keywords-section table td {
+            color: #333 !important;
+            background-color: rgba(255,255,255,0.95);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .keywords-section table th {
+            background-color: rgba(255,255,255,0.7);
+        }
+        .keywords-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .keyword-table {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .keyword-table table {
+            margin: 0;
+            box-shadow: none;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }   
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧭 ZW3D 신규 API 구조 소개</h1>
+        
+        <div class="toc">
+            <h3>📋 목차</h3>
+            <ul>
+                <li><a href="#features">✅ 신규 API의 특징 요약</a></li>
+                <li><a href="#basic-modules">📦 1. 기본 모듈 (Basic Modules)</a></li>
+                <li><a href="#file-modules">📁 2. 파일 모듈 (File Modules)</a></li>
+                <li><a href="#entity-modules">🧱 3. 엔티티 모듈 (Entity Modules)</a></li>
+                <li><a href="#brep-modules">🧩 4. Brep 모듈</a></li>
+                <li><a href="#wireframe-modules">🧵 5. 와이어프레임 모듈</a></li>
+                <li><a href="#history-modules">📜 6. 히스토리 모듈</a></li>
+                <li><a href="#datum-modules">📐 7. 기준 객체 모듈</a></li>
+                <li><a href="#modeling-modules">🛠 8. 모델링 피처 모듈</a></li>
+                <li><a href="#attribute-modules">🏷 9. 속성 모듈</a></li>
+                <li><a href="#parameter-modules">📊 10. 파라미터 모듈</a></li>
+                <li><a href="#math-modules">➕ 11. 수학 모듈</a></li>
+                <li><a href="#dataexchange-modules">🔄 12. 데이터 교환 모듈</a></li>
+                <li><a href="#view-modules">👁 13. 뷰 모듈</a></li>
+                <li><a href="#pmi-modules">📝 14. PMI 모듈</a></li>
+                <li><a href="#assembly-modules">⚙ 15. 어셈블리 모듈</a></li>
+                <li><a href="#drawing-modules">📐 16. 도면 모듈</a></li>
+                <li><a href="#sketch-modules">✏ 17. 스케치 모듈</a></li>
+                <li><a href="#ui-modules">🖼 18. UI 모듈</a></li>
+                <li><a href="#command-modules">💬 19. 명령어 모듈</a></li>
+                <li><a href="#harness-modules">🔌 20. 하니스 모듈</a></li>
+                <li><a href="#sheetmetal-modules">🧯 21. 판금 모듈</a></li>
+                <li><a href="#cam-modules">🛠 22. CAM 모듈</a></li>
+                <li><a href="#keywords">🔤 주요 약어 및 키워드 요약</a></li>
+            </ul>
+        </div>
+
+        <section id="features" class="features-section">
+            <h2 style="color: white; border: none; padding: 0; margin-top: 0;">✅ 신규 API의 특징 요약</h2>
+            
+            <table style="margin: 20px 0; background-color: rgba(255,255,255,0.1);">
+                <thead>
+                    <tr style="background-color: rgba(255,255,255,0.2);">
+                        <th style="color: white;">특징</th>
+                        <th style="color: white;">설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: rgba(255,255,255,0.1);">
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);"><strong>✅ 명확한 네이밍 규칙</strong></td>
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);">줄임말 사용 최소화, ZW3D 기능과 이름 일치</td>
+                    </tr>
+                    <tr style="background-color: rgba(255,255,255,0.05);">
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);"><strong>✅ 핸들 기반 객체 제어</strong></td>
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);">객체를 핸들로 제어하며, 사용 후 반드시 해제해야 함</td>
+                    </tr>
+                    <tr style="background-color: rgba(255,255,255,0.1);">
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);"><strong>✅ 기본 환경 = Part</strong></td>
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);">별도 환경 명시 없이 Part 또는 Assembly 환경 모두 사용 가능</td>
+                    </tr>
+                    <tr style="background-color: rgba(255,255,255,0.05);">
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);"><strong>✅ 신규/구버전 병행 가능</strong></td>
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);">변환 인터페이스를 통해 혼합 사용 가능하며, 최종적으로는 신규 API 사용 권장</td>
+                    </tr>
+                    <tr style="background-color: rgba(255,255,255,0.1);">
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);"><strong>✅ 접두사</strong></td>
+                        <td style="color: white; border-color: rgba(255,255,255,0.2);">함수: Zw, 열거형: ezw, 구조체: szw → 구버전 cvx, evx, svx와 구분 가능</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="basic-modules">
+            <h2>📦 1. 기본 모듈 (Basic Modules)</h2>
+            
+            <table class="basic-module-table">
+                <thead>
+                    <tr>
+                        <th>세부 모듈</th>
+                        <th>설명</th>
+                        <th>헤더 파일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Basic Data</strong></td>
+                        <td>공용 구조체 및 열거형</td>
+                        <td><code>zwapi_util.h</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Global 설정</strong></td>
+                        <td>단위, 색상, 버전, 언어 등</td>
+                        <td><code>zwapi_global_apply.h</code>, <code>zwapi_global_apply_data.h</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Display</strong></td>
+                        <td>뷰 표시 제어 (조명, 확대 등)</td>
+                        <td><code>zwapi_display.h</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory</strong></td>
+                        <td>메모리 해제 관련</td>
+                        <td><code>zwapi_memory.h</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Layer</strong></td>
+                        <td>레이어 구조 및 규칙 설정</td>
+                        <td><code>zwapi_layer.h</code>, <code>zwapi_layer_data.h</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Material</strong></td>
+                        <td>소재 및 라이브러리 관리</td>
+                        <td><code>zwapi_material.h</code>, <code>zwapi_materiallibrary.h</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dimension</strong></td>
+                        <td>치수 조회 및 속성 설정</td>
+                        <td><code>zwapi_dimension.h</code>, <code>zwapi_dimension_data.h</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Table</strong></td>
+                        <td>표 속성 설정</td>
+                        <td><code>zwapi_table.h</code>, <code>zwapi_table_data.h</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pickset</strong></td>
+                        <td>선택 집합 관리</td>
+                        <td><code>zwapi_pickset.h</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="icon-grid">
+            <div id="file-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">📁</span>
+                    2. 파일 모듈 (File Modules)
+                </div>
+                <div class="module-description">
+                    파일 열기, 저장, 경로 관리 등
+                </div>
+                <div class="header-files">
+                    zwapi_file_data.h, zwapi_file_general.h, zwapi_file_path.h
+                </div>
+            </div>
+
+            <div id="entity-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🧱</span>
+                    3. 엔티티 모듈 (Entity Modules)
+                </div>
+                <div class="module-description">
+                    일반 엔티티 조회 및 조작
+                </div>
+                <div class="header-files">
+                    zwapi_entity.h, zwapi_entity_data.h
+                </div>
+            </div>
+
+            <div id="brep-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🧩</span>
+                    4. Brep 모듈
+                </div>
+                <div class="module-description">
+                    Topology 단위 엔티티 (Shape, Face, Edge 등)
+                </div>
+                <div class="header-files">
+                    zwapi_shape.h, zwapi_face.h, zwapi_loop.h, zwapi_edge.h 등
+                </div>
+            </div>
+
+            <div id="wireframe-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🧵</span>
+                    5. 와이어프레임 모듈 (Wireframe Modules)
+                </div>
+                <div class="module-description">
+                    Curve, Point 객체 처리
+                </div>
+                <div class="header-files">
+                    zwapi_curve.h, zwapi_point.h
+                </div>
+            </div>
+
+            <div id="history-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">📜</span>
+                    6. 히스토리 모듈 (History Modules)
+                </div>
+                <div class="module-description">
+                    히스토리 트리 접근 및 조작
+                </div>
+                <div class="header-files">
+                    zwapi_history.h
+                </div>
+            </div>
+
+            <div id="datum-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">📐</span>
+                    7. 기준 객체 모듈 (Datum Modules)
+                </div>
+                <div class="module-description">
+                    기준축, 기준면, 좌표계(CSYS), LCS 등
+                </div>
+                <div class="header-files">
+                    zwapi_datum.h
+                </div>
+            </div>
+
+            <div id="modeling-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🛠</span>
+                    8. 모델링 피처 모듈 (Modeling Modules)
+                </div>
+                <div class="module-description">
+                    Shape, Freeform, Wireframe 피처 포함
+                </div>
+                <div class="header-files">
+                    zwapi_feature_shape.h, zwapi_feature_freeform.h
+                </div>
+            </div>
+
+            <div id="attribute-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🏷</span>
+                    9. 속성 모듈 (Attribute Modules)
+                </div>
+                <div class="module-description">
+                    표준/사용자/물리 속성 관리
+                </div>
+                <div class="header-files">
+                    zwapi_attribute.h
+                </div>
+            </div>
+
+            <div id="parameter-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">📊</span>
+                    10. 파라미터 모듈 (Parameter Modules)
+                </div>
+                <div class="module-description">
+                    변수, 구성표(ConfigTable), 3D BOM 관리
+                </div>
+                <div class="header-files">
+                    zwapi_variable.h, zwapi_configtable.h, zwapi_3dbom.h
+                </div>
+            </div>
+
+            <div id="math-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">➕</span>
+                    11. 수학 모듈 (Math Modules)
+                </div>
+                <div class="module-description">
+                    행렬, 벡터, 박스, 교차 검사
+                </div>
+                <div class="header-files">
+                    zwapi_matrix.h, zwapi_vector.h, zwapi_intersection.h
+                </div>
+            </div>
+
+            <div id="dataexchange-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🔄</span>
+                    12. 데이터 교환 모듈 (DataExchange Modules)
+                </div>
+                <div class="module-description">
+                    Import/Export 및 링크 데이터
+                </div>
+                <div class="header-files">
+                    zwapi_dataexchange.h, zwapi_linkmanager.h
+                </div>
+            </div>
+
+            <div id="view-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">👁</span>
+                    13. 뷰 모듈 (View Modules)
+                </div>
+                <div class="module-description">
+                    표준/사용자 뷰, 절단 뷰 등
+                </div>
+                <div class="header-files">
+                    zwapi_view.h
+                </div>
+            </div>
+
+            <div id="pmi-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">📝</span>
+                    14. PMI 모듈
+                </div>
+                <div class="module-description">
+                    제품 제조 정보: 치수, 기호, 텍스트, 표 등
+                </div>
+                <div class="header-files">
+                    zwapi_pmi.h
+                </div>
+            </div>
+
+            <div id="assembly-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">⚙</span>
+                    15. 어셈블리 모듈 (Assembly Modules)
+                </div>
+                <div class="module-description">
+                    컴포넌트 및 제약 조건 처리
+                </div>
+                <div class="header-files">
+                    zwapi_component.h, zwapi_assembly_constraint.h
+                </div>
+            </div>
+
+            <div id="drawing-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">📐</span>
+                    16. 도면 모듈 (Drawing Modules)
+                </div>
+                <div class="module-description">
+                    도면 시트, 뷰, 표, 심볼 등
+                </div>
+                <div class="header-files">
+                    zwapi_drawing_general.h, zwapi_drawing_view.h, zwapi_drawing_table.h
+                </div>
+            </div>
+
+            <div id="sketch-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">✏</span>
+                    17. 스케치 모듈 (Sketch Modules)
+                </div>
+                <div class="module-description">
+                    2D/3D 스케치, 제약 조건, 치수 등
+                </div>
+                <div class="header-files">
+                    zwapi_sketch_general.h, zwapi_sketch_constraint.h, zwapi_sketch_3d.h
+                </div>
+            </div>
+
+            <div id="ui-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🖼</span>
+                    18. UI 모듈 (UI Modules)
+                </div>
+                <div class="module-description">
+                    사용자 입력, 폼, 리스트, 리본 등 UI 구성 요소
+                </div>
+                <div class="header-files">
+                    zwapi_ui_form.h, zwapi_ui_popupform.h, zwapi_ui_ribbon.h
+                </div>
+            </div>
+
+            <div id="command-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">💬</span>
+                    19. 명령어 모듈 (Command Modules)
+                </div>
+                <div class="module-description">
+                    템플릿 명령어 정의 및 등록
+                </div>
+                <div class="header-files">
+                    zwapi_command.h, zwapi_template_command.h
+                </div>
+            </div>
+
+            <div id="harness-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🔌</span>
+                    20. 하니스 모듈 (Harness Modules)
+                </div>
+                <div class="module-description">
+                    하니스 관련 조작
+                </div>
+                <div class="header-files">
+                    zwapi_harness.h
+                </div>
+            </div>
+
+            <div id="sheetmetal-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🧯</span>
+                    21. 판금 모듈 (SheetMetal Modules)
+                </div>
+                <div class="module-description">
+                    판금 부품 및 특성 제어
+                </div>
+                <div class="header-files">
+                    zwapi_sheet_metal.h
+                </div>
+            </div>
+
+            <div id="cam-modules" class="module-card">
+                <div class="module-header">
+                    <span class="module-icon">🛠</span>
+                    22. CAM 모듈 (CAM Modules)
+                </div>
+                <div class="module-description">
+                    가공, 공구, 피처, 기계 등 CAM 요소
+                </div>
+                <div class="header-files">
+                    zwapi_cm_op.h, zwapi_cm_tool.h, zwapi_cm_machine.h
+                </div>
+            </div>
+        </div>
+
+        <section id="keywords" class="keywords-section">
+            <h2 style="color: black; border: none; padding: 0; margin-top: 0;">🔤 주요 약어 및 키워드 요약</h2>
+            
+            <div class="keywords-grid">
+                <div class="keyword-table">
+                    <h3 style="color: white; text-align: center; margin-top: 0;">📌 약어 정리</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="color: white;">약어</th>
+                                <th style="color: white;">의미</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="color: white;"><strong>BOM</strong></td>
+                                <td style="color: white;">자재 명세서 (Bill of Material)</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>PMI</strong></td>
+                                <td style="color: white;">제조 정보 (Product & Manufacturing Info)</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>UDF</strong></td>
+                                <td style="color: white;">사용자 정의 피처</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>LCS</strong></td>
+                                <td style="color: white;">로컬 좌표계 (Local Coordinate System)</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>ECAD</strong></td>
+                                <td style="color: white;">전자 설계 CAD</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="keyword-table">
+                    <h3 style="color: white; text-align: center; margin-top: 0;">📌 자주 쓰이는 동사 키워드</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="color: white;">단어</th>
+                                <th style="color: white;">의미</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="color: white;"><strong>Create</strong></td>
+                                <td style="color: white;">생성</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Delete</strong></td>
+                                <td style="color: white;">삭제</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Set / Get</strong></td>
+                                <td style="color: white;">설정 / 조회</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Init / Free</strong></td>
+                                <td style="color: white;">초기화 / 해제</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Load / Unload</strong></td>
+                                <td style="color: white;">로딩 / 언로드</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Rename</strong></td>
+                                <td style="color: white;">이름 변경</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Suppress / Unsuppress</strong></td>
+                                <td style="color: white;">숨김 / 복원</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Insert / Check</strong></td>
+                                <td style="color: white;">삽입 / 검사</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Transform</strong></td>
+                                <td style="color: white;">변환</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;"><strong>Refresh</strong></td>
+                                <td style="color: white;">갱신</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

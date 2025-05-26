@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📘 ZW3D API 자주 묻는 질문 (FAQ)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .faq-item {
+            background-color: #f8f9fa;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+
+        .faq-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .faq-content {
+            padding: 25px;
+        }
+
+        .step-section {
+            background-color: #e8f4fd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background-color: #4a5568;
+            color: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .command-box {
+            background-color: #1a202c;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .file-path {
+            background-color: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #495057;
+        }
+
+        .step-number {
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+
+        .toc a {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+            color: #3498db;
+        }
+
+        .summary-table {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #212529;
+            /* 어두운 회색으로 글자 보이게 */
+        }
+
+        .summary-table td {
+            background-color: rgba(255, 255, 255, 0.95);
+            /* 거의 흰색 배경으로 가독성 확보 */
+            color: #212529;
+        }
+
+        .summary-table th {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #303030;
+            /* 헤더는 밝은 회색 유지 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📘 ZW3D API 자주 묻는 질문 (FAQ)</h1>
+
+        <div class="toc">
+            <h3>📋 목차</h3>
+            <ul>
+                <li><a href="#q1">🔧 Q1. DLL 프로젝트를 어떻게 설정하나요?</a></li>
+                <li><a href="#q2">📦 Q2. 리소스 파일을 .zrc로 컴파일하는 방법은?</a></li>
+                <li><a href="#q3">📁 Q3. DLL 및 리소스 파일은 어디에 넣어야 ZW3D가 인식하나요?</a></li>
+                <li><a href="#q4">🐞 Q4. DLL 프로젝트를 디버깅하려면?</a></li>
+                <li><a href="#q5">⚠️ Q5. 명령 실행 시 오류가 뜨는 이유는?</a></li>
+                <li><a href="#q6">🧹 Q6. DLL 애플리케이션을 제거하려면?</a></li>
+                <li><a href="#q7">📌 Q7. ZW3D는 동시에 몇 개의 DLL을 로드할 수 있나요?</a></li>
+                <li><a href="#q8">📛 Q8. 등록된 명령어 이름이란?</a></li>
+                <li><a href="#q9">🔠 Q9. 명령어 이름 최대 길이는?</a></li>
+                <li><a href="#q10">🧩 Q10. "Custom Feature"란 무엇인가요?</a></li>
+                <li><a href="#q11">🕘 Q11. 어떤 API는 히스토리를 생성하고, 어떤 API는 생성하지 않나요?</a></li>
+                <li><a href="#summary">📌 요약 정리</a></li>
+            </ul>
+        </div>
+
+        <div id="q1" class="faq-item">
+            <div class="faq-header">
+                🔧 Q1. DLL 프로젝트를 어떻게 설정하나요?
+            </div>
+            <div class="faq-content">
+                <h3>✅ 단계별 가이드</h3>
+
+                <div class="step-section">
+                    <h4><span class="step-number">1</span>Visual Studio 2019에서 빈 DLL 프로젝트 생성</h4>
+                </div>
+
+                <div class="step-section">
+                    <h4><span class="step-number">2</span>다음 파일들을 프로젝트에 추가</h4>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>파일</th>
+                                <th>설명</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="file-path">VxApi.h</span></td>
+                                <td>ZW3D 제공 헤더 파일 (설치 경로의 api 폴더에 위치)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="file-path">zw3d.lib</span></td>
+                                <td>ZW3D 제공 라이브러리 파일</td>
+                            </tr>
+                            <tr>
+                                <td><span class="file-path">XXX.def</span></td>
+                                <td>DLL 내보내기 함수 명시용 모듈 정의 파일</td>
+                            </tr>
+                            <tr>
+                                <td><span class="file-path">XXX.c / XXX.cpp</span></td>
+                                <td>명령 구현용 소스 파일</td>
+                            </tr>
+                            <tr>
+                                <td><span class="file-path">XXX.tcmd</span></td>
+                                <td>ZW3D 명령의 리소스 파일<br><small>※ GUI가 필요 없는 명령이라면 생략 가능</small></td>
+                            </tr>
+                            <tr>
+                                <td><span class="file-path">XXX.ui</span></td>
+                                <td>ZW3D 스타일 UI (폼/다이얼로그) 파일<br><small>※ 필요 없으면 생략 가능</small></td>
+                            </tr>
+                            <tr>
+                                <td><span class="file-path">XXX.zcui</span></td>
+                                <td>메뉴 등록용 파일<br><small>※ 메뉴 등록이 필요 없으면 생략 가능</small></td>
+                            </tr>
+                            <tr>
+                                <td><span class="file-path">XXX.png / .bmp</span></td>
+                                <td>아이콘 이미지</td>
+                            </tr>
+                            <tr>
+                                <td><span class="file-path">zrc.exe</span></td>
+                                <td>.tcmd, .ui, .zcui, .png 파일을 .zrc로 컴파일하는 리소스 도구</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="step-section">
+                    <h4><span class="step-number">3</span>.def 파일을 링커 설정에서 명시</h4>
+                </div>
+            </div>
+        </div>
+
+        <div id="q2" class="faq-item">
+            <div class="faq-header">
+                📦 Q2. 리소스 파일을 .zrc로 컴파일하는 방법은?
+            </div>
+            <div class="faq-content">
+                <h3>💡 명령어 예시:</h3>
+
+                <div class="command-box">
+                    cd "C:\ZW3D\install\folder"
+                    zrc.exe D:\project -o D:\project\MyAddon.zrc
+                </div>
+
+                <div class="note">
+                    <ul>
+                        <li><strong>zrc.exe</strong>는 지정된 폴더 내의 모든 .tcmd, .ui, .zcui, .bmp 등을 자동 검색</li>
+                        <li><strong>출력 파일명(.zrc)</strong>은 DLL 이름과 동일해야 함 (MyAddon.dll → MyAddon.zrc)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="q3" class="faq-item">
+            <div class="faq-header">
+                📁 Q3. DLL 및 리소스 파일은 어디에 넣어야 ZW3D가 인식하나요?
+            </div>
+            <div class="faq-content">
+                <div class="success">
+                    <ul>
+                        <li><strong>ZW3D 설치 폴더</strong> 또는 <strong>사용자 폴더</strong> 아래 <span
+                                class="file-path">apilibs</span> 폴더에 배치</li>
+                        <li><span class="file-path">apilibs</span> 폴더가 없다면 수동으로 생성</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="q4" class="faq-item">
+            <div class="faq-header">
+                🐞 Q4. DLL 프로젝트를 디버깅하려면?
+            </div>
+            <div class="faq-content">
+                <h3>🔹 방법 1: 실행 중 프로세스 연결</h3>
+                <ul>
+                    <li>메뉴 <strong>Debug > Attach to Process...</strong></li>
+                    <li><strong>zw3d.exe</strong> 선택 후 "Attach" 클릭</li>
+                </ul>
+
+                <h3>🔹 방법 2: 프로젝트 설정에서 실행 경로 지정</h3>
+                <ul>
+                    <li>프로젝트 속성 > <strong>Debugging</strong></li>
+                    <li>"<strong>Command</strong>" 항목에 zw3d.exe 경로 입력</li>
+                    <li>"<strong>Environment</strong>" 항목에 <span class="file-path">_No_Debug_Heap=1</span> 입력</li>
+                    <li><strong>F5</strong> 키로 디버깅 시작</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="q5" class="faq-item">
+            <div class="faq-header">
+                ⚠️ Q5. 명령 실행 시 "No such symbol" 또는 "Not a valid command" 오류가 뜨는 이유는?
+            </div>
+            <div class="faq-content">
+                <h3>가능한 원인 및 해결 방법:</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>원인</th>
+                            <th>해결 방법</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>① 초기화 함수 이름이 잘못됨</td>
+                            <td>DLL 이름 + Init 형식으로 지정해야 함<br>예: DrawBox.dll → DrawBoxInit()</td>
+                        </tr>
+                        <tr>
+                            <td>② DLL에서 함수가 export되지 않음</td>
+                            <td>.def 파일에 함수 이름 명시 필수</td>
+                        </tr>
+                        <tr>
+                            <td>③ 명령 등록 안됨</td>
+                            <td>cvxCmdFunc() 사용하여 명령 등록 필요</td>
+                        </tr>
+                        <tr>
+                            <td>④ 명령 호출 접두사 오류</td>
+                            <td>.tcmd가 있는 명령은 !명령어, 일반 명령은 ~명령어 사용</td>
+                        </tr>
+                        <tr>
+                            <td>⑤ .zrc 누락 또는 빌드 안 됨</td>
+                            <td>zrc.exe로 다시 컴파일 후 apilibs 폴더에 복사</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="q6" class="faq-item">
+            <div class="faq-header">
+                🧹 Q6. DLL 애플리케이션을 제거하려면?
+            </div>
+            <div class="faq-content">
+                <div class="success">
+                    <p><strong>ZW3D는 DLL을 동적으로 로드/언로드하므로,</strong></p>
+                    <p><strong>DLL 및 관련 파일들을 삭제하면 제거 완료</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="q7" class="faq-item">
+            <div class="faq-header">
+                📌 Q7. ZW3D는 동시에 몇 개의 DLL을 로드할 수 있나요?
+            </div>
+            <div class="faq-content">
+                <div class="success">
+                    <h2 style="text-align: center; color: #2c3e50;">최대 16개</h2>
+                </div>
+            </div>
+        </div>
+
+        <div id="q8" class="faq-item">
+            <div class="faq-header">
+                📛 Q8. 등록된 명령어 이름이란?
+            </div>
+            <div class="faq-content">
+                <p><strong>cvxCmdFunc() 호출 시 사용하는 명령 키워드</strong></p>
+
+                <h3>예시:</h3>
+                <div class="code-block" data-lang="C++">
+                    cvxCmdFunc("CreateHole", (void*)ModelAddHole, VX_CODE_GENERAL);
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>항목</th>
+                            <th>내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>"CreateHole"</strong></td>
+                            <td>등록된 명령어 이름 (UI, .tcmd에도 동일하게 사용됨)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ModelAddHole</strong></td>
+                            <td>실제 구현 함수 포인터</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VX_CODE_GENERAL</strong></td>
+                            <td>명령 타입 코드 (일반 명령)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="q9" class="faq-item">
+            <div class="faq-header">
+                🔠 Q9. 명령어 이름 최대 길이는?
+            </div>
+            <div class="faq-content">
+                <div class="success">
+                    <h2 style="text-align: center; color: #2c3e50;">최대 15자 (ASCII)</h2>
+                    <p style="text-align: center;">
+                        예: CreateMySurface ✅, CreateFilletFace ❌
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="q10" class="faq-item">
+            <div class="faq-header">
+                🧩 Q10. "Custom Feature"란 무엇인가요? 일반 피처와 차이는?
+            </div>
+            <div class="faq-content">
+                <h3>▶️ 정의:</h3>
+                <p><strong>두 개 이상의 피처를 하나로 결합한 사용자 정의 피처</strong></p>
+
+                <h3>예시 (.tcmd에서 설정):</h3>
+                <div class="code-block" data-lang="XML">
+                    &lt;property name="function"&gt;CustomOp&lt;/property&gt;
+                    &lt;property name="custom"&gt;FilletBox.c&lt;/property&gt;
+                </div>
+
+                <ul>
+                    <li><strong>FilletBox</strong>는 등록된 명령 이름</li>
+                    <li><strong>.c</strong>는 C 함수 구현을 의미</li>
+                </ul>
+
+                <h3>op_type 속성값:</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>값</th>
+                            <th>의미</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>-1</td>
+                            <td>히스토리에서 숨김 피처</td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>미분류 피처 (기본값)</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>표시 속성 등 수정</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>지오메트리 수정 포함</td>
+                        </tr>
+                        <tr>
+                            <td>-2</td>
+                            <td>2와 유사하나 입력 엔티티 정리를 방지</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>삭제 피처</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>입력된 엔티티는 수정 안하나 외부 객체를 수정</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>고정 지오메트리로 재생성, 재정의 불가</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="q11" class="faq-item">
+            <div class="faq-header">
+                🕘 Q11. 어떤 API는 히스토리를 생성하고, 어떤 API는 생성하지 않나요?
+            </div>
+            <div class="faq-content">
+                <div class="note">
+                    <ul>
+                        <li><strong>엔티티를 수정하지 않는 API</strong> (예: 질의, 파일 생성 등)는 <strong>히스토리를 생성하지 않음</strong></li>
+                        <li>반면, <strong>ZW3D GUI에서 히스토리를 생성하는 작업과 동일한 API</strong>는 <strong>히스토리 생성함</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="summary" class="summary-table">
+            <h2 style="color: white; text-align: center; padding: 20px; margin: 0;">📌 요약 정리</h2>
+            <table style="margin: 0;">
+                <thead>
+                    <tr>
+                        <th>질문</th>
+                        <th>핵심 요약</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>DLL 구성 방법</strong></td>
+                        <td>DLL, .def, .tcmd, .ui, .zcui, 아이콘, zrc.exe 사용</td>
+                    </tr>
+                    <tr>
+                        <td><strong>리소스 빌드</strong></td>
+                        <td>zrc.exe 실행 후 DLL 이름과 동일한 .zrc 생성</td>
+                    </tr>
+                    <tr>
+                        <td><strong>오류 해결</strong></td>
+                        <td>Init 함수명, 등록, 접두사, zrc 존재 여부 확인</td>
+                    </tr>
+                    <tr>
+                        <td><strong>디버깅</strong></td>
+                        <td>Attach to zw3d.exe 또는 프로젝트 설정</td>
+                    </tr>
+                    <tr>
+                        <td><strong>명령어 명명 규칙</strong></td>
+                        <td>15자 이하, 중복 없는 ASCII 이름</td>
+                    </tr>
+                    <tr>
+                        <td><strong>등록 키워드</strong></td>
+                        <td>cvxCmdFunc의 첫 번째 인자</td>
+                    </tr>
+                    <tr>
+                        <td><strong>최대 DLL 수</strong></td>
+                        <td>16개</td>
+                    </tr>
+                    <tr>
+                        <td><strong>제거 방법</strong></td>
+                        <td>관련 파일 삭제로 완전 제거</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

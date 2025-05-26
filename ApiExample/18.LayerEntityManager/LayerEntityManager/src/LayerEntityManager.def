@@ -1,0 +1,6 @@
+LIBRARY LayerEntityManager.dll
+
+EXPORTS
+    ; Explicit exports can go here
+    LayerEntityManagerInit
+    LayerEntityManagerExit

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7장: ZW3D 특수 기호 이스케이프 문자 맵</title>
+    <style>
+        body { 
+            font-family: 'Malgun Gothic', Arial, sans-serif; 
+            margin: 20px; 
+            line-height: 1.8; 
+            background-color: #fafafa;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #2c5aa0; 
+            border-bottom: 3px solid #2c5aa0; 
+            padding-bottom: 10px;
+            font-size: 2.2em;
+        }
+        h2 { 
+            color: #4a7c59; 
+            margin-top: 30px;
+            font-size: 1.5em;
+            border-left: 4px solid #4a7c59;
+            padding-left: 15px;
+        }
+        .note { 
+            background-color: #fff3cd; 
+            padding: 20px; 
+            border-left: 5px solid #ffc107; 
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background-color: #f8d7da;
+            padding: 20px;
+            border-left: 5px solid #dc3545;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #d1ecf1;
+            padding: 20px;
+            border-left: 5px solid #17a2b8;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .symbol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        .symbol-table th {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-weight: bold;
+        }
+        .symbol-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .symbol-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .symbol-table tr:hover {
+            background-color: #e3f2fd;
+        }
+        .string-col {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #f1f3f4;
+            font-weight: bold;
+        }
+        .unicode-col {
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #666;
+        }
+        .symbol-col {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        .section {
+            margin-bottom: 35px;
+        }
+        .code-example {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>7장: ZW3D 특수 기호 이스케이프 문자 맵</h1>
+
+        <div class="section">
+            <div class="note">
+                <p><strong>📝 중요 참고사항:</strong></p>
+                <p>ZW3D 기호 열의 큰따옴표 안의 텍스트는 ZW3D 특수 기호에 해당합니다. <strong>'31'</strong>은 ASCII 코드를 사용하며, 입력할 때 특별한 처리가 필요합니다.</p>
+                <ul>
+                    <li><strong>'31'</strong>의 16진수 ASCII 코드: <code>0x1F</code></li>
+                    <li><strong>'127'</strong>의 16진수 ASCII 코드: <code>0x7F</code></li>
+                </ul>
+            </div>
+
+            <div class="info">
+                <h3>🔤 사용 방법</h3>
+                <p>이 문자 맵은 ZW3D에서 특수 기호를 표시하거나 입력할 때 사용됩니다. 각 기호는 다음과 같은 형식으로 구성됩니다:</p>
+                <div class="code-example">
+                    <strong>형식:</strong> [VxX]문자 → 유니코드 → 표시 기호<br>
+                    <strong>예시:</strong> [VxX]# → \U+E012 → 특수 기호
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💡 사용 예제</h2>
+            
+            <div class="code-example">
+                <strong>기본 사용법:</strong><br>
+                텍스트에서 "[VxX]#"를 입력하면 → 특수 기호로 변환됨<br>
+                텍스트에서 "[VxY]$"를 입력하면 → 다른 스타일의 특수 기호로 변환됨
+            </div>
+
+            <div class="warning">
+                <p><strong>⚠️ 특별 주의사항:</strong></p>
+                <ul>
+                    <li><strong>'31'</strong> 및 <strong>'127'</strong>은 ASCII 코드 값으로, 직접 입력 시 특별한 처리가 필요합니다</li>
+                    <li>일부 기호는 특정 시리즈에서만 사용 가능합니다</li>
+                    <li>유니코드 값은 시스템 폰트에 따라 표시가 다를 수 있습니다</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 시리즈별 특징</h2>
+            
+            <div class="info">
+                <h3>VxX 시리즈</h3>
+                <p>기본적인 ZW3D 특수 기호 세트로, 가장 널리 사용되는 기호들을 포함합니다.</p>
+            </div>
+
+            <div class="info">
+                <h3>VxY 시리즈</h3>
+                <p>확장된 기호 세트로, VxX 시리즈의 대안적 표현이나 추가 기호들을 제공합니다.</p>
+            </div>
+
+            <div class="info">
+                <h3>VxWD 시리즈</h3>
+                <p>특수 목적의 기호 세트로, 제한적인 기호들만 포함하며 주로 방향 표시 등에 사용됩니다.</p>
+            </div>
+        </div>
+
+        <div class="note">
+            <h3>📚 추가 정보</h3>
+            <p>이 문자 맵은 ZW3D 내에서 도면 작성, 주석 추가, 특수 표기 등에 사용됩니다. 각 기호의 정확한 표시는 사용하는 시스템과 폰트에 따라 달라질 수 있으므로, 실제 사용 전에 ZW3D 환경에서 테스트해보는 것을 권장합니다.</p>
+        </div>
+
+        <div class="section" style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #2c5aa0;">
+            <h2>🎉 ZW3D API 학습 완료!</h2>
+            <p style="font-size: 1.2em; color: #4a7c59;">
+                축하합니다! ZW3D API 개발 가이드의 모든 장을 완료하셨습니다.<br>
+                이제 ZW3D 기반의 강력한 애플리케이션 개발을 시작할 수 있습니다.
+            </p>
+            
+            <div style="background-color: #e8f5e8; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3>📞 추가 지원이 필요하시면</h3>
+                <p><strong>이메일:</strong> zdn@zwsoft.com</p>
+                <p>언제든지 문의해 주세요!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

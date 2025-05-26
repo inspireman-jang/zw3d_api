@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZW3D API 소개 (Introduction to the ZW3D API)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .overview {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        .step-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background-color: #4a5568;
+            color: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .command-box {
+            background-color: #1a202c;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .step-number {
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .file-path {
+            background-color: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #495057;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: 500;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💡 ZW3D API 소개 (Introduction to the ZW3D API)</h1>
+        
+        <div class="toc">
+            <h3>📋 목차</h3>
+            <ul>
+                <li><a href="#overview">📌 개요</a></li>
+                <li><a href="#hello-world">🧪 "Hello World" 예제</a></li>
+                <li><a href="#development-steps">✅ 개발 단계 요약</a></li>
+                <li><a href="#reference">📎 참고 사항</a></li>
+                <li><a href="#summary">✍️ 정리 요약</a></li>
+            </ul>
+        </div>
+
+        <section id="overview">
+            <div class="overview">
+                <h2 style="color: white; border: none; padding: 0; margin-top: 0;">📌 개요</h2>
+                <p><strong>ZW3D API</strong>는 ZW3D에서 사용자 정의 명령어와 기능을 구현하기 위해 제공되는 <strong>C 기반의 함수 집합</strong>입니다.</p>
+                <p>이 API를 통해 <strong>DLL을 생성</strong>하고, 해당 DLL을 ZW3D 실행 시 동적으로 로드하여 <strong>내부 명령어처럼 사용</strong>할 수 있습니다.</p>
+                <p>즉, <strong>C로 작성된 사용자 함수가 ZW3D UI에서 직접 실행 가능</strong>하도록 설계된 구조입니다.</p>
+            </div>
+        </section>
+
+        <section id="hello-world">
+            <h2>🧪 "Hello World" 예제</h2>
+            <p>아래는 ZW3D 메시지 영역에 "Hello World"를 출력하는 가장 기본적인 API DLL 예제입니다.</p>
+        </section>
+
+        <section id="development-steps">
+            <h2>✅ 개발 단계 요약</h2>
+
+            <div class="step-section">
+                <h3><span class="step-number">1</span>준비 작업</h3>
+                <p><strong>ZW3D 설치 폴더</strong>에서 <span class="file-path">zw3d.lib</span> 파일을 복사하여 예제 작업 폴더(예: MyFolder)에 저장합니다.</p>
+                
+                <div class="note">
+                    <strong>💡 설치 폴더 경로 확인:</strong> ZW3D 메뉴 → Help > About...에서 확인 가능
+                </div>
+                
+                <p><span class="file-path">api</span> 폴더에 있는 모든 <span class="file-path">zwapi_*.h</span> 헤더 파일도 MyFolder로 복사합니다.</p>
+            </div>
+
+            <div class="step-section">
+                <h3><span class="step-number">2</span>C 소스파일 작성 (MyLib.c)</h3>
+                <p>메모장으로 새 파일을 만들고 아래 코드를 입력합니다:</p>
+                
+                <div class="code-block" data-lang="C">
+#include "zwapi_cmd.h"
+#include "zwapi_message.h"
+
+void MyFunction(void);
+
+// 초기화 함수: DLL 로드 시 자동 호출됨
+int MyLibInit(int format, void *data)
+{
+    cvxCmdFunc("MyFunction", (void*)MyFunction, VX_CODE_GENERAL);
+    return 0;
+}
+
+// 종료 함수: ZW3D 종료 시 자동 호출됨
+int MyLibExit(void)
+{
+    cvxCmdFuncUnload("MyFunction");
+    return 0;
+}
+
+// 실제 기능 함수: ZW3D 명령어에서 호출될 함수
+void MyFunction(void)
+{
+    cvxMsgDisp("Hello world!");
+}
+                </div>
+
+                <div class="success">
+                    <h4>💡 설명 요약:</h4>
+                    <ul>
+                        <li><strong>MyLibInit</strong> → DLL이 로드될 때 ZW3D에서 호출됨 (명령어 등록)</li>
+                        <li><strong>MyLibExit</strong> → 종료 시 해제 처리</li>
+                        <li><strong>MyFunction</strong> → 사용자가 호출할 명령 함수</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-section">
+                <h3><span class="step-number">3</span>DEF 파일 작성 (MyLib.def)</h3>
+                
+                <div class="code-block" data-lang="DEF">
+LIBRARY MyLib.dll
+EXPORTS
+    MyLibInit
+    MyLibExit
+    MyFunction
+                </div>
+
+                <div class="note">
+                    <strong>※ DEF 파일:</strong> DLL에 포함된 외부 노출 함수 목록을 정의합니다.
+                </div>
+            </div>
+
+            <div class="step-section">
+                <h3><span class="step-number">4</span>빌드 (컴파일 및 링크)</h3>
+                <p>Visual Studio 명령 프롬프트에서 아래 명령 실행:</p>
+                
+                <div class="command-box">
+cl.exe /nologo /c /MT /LD /Z7 MyLib.c
+link /DEF:MyLib.def /DLL /OUT:MyLib.dll *.obj zw3dmain.lib
+                </div>
+
+                <ul>
+                    <li><strong>cl.exe</strong> : 컴파일</li>
+                    <li><strong>link</strong> : DLL 생성</li>
+                </ul>
+            </div>
+
+            <div class="step-section">
+                <h3><span class="step-number">5</span>DLL 등록</h3>
+                <p>생성된 <span class="file-path">MyLib.dll</span> 파일을 ZW3D의 다음 폴더 중 하나에 복사합니다:</p>
+                
+                <ul>
+                    <li><strong>사용자 전용 폴더:</strong> <span class="file-path">.../ZW3D/사용자폴더/apilibs</span></li>
+                    <li><strong>메인 설치 폴더:</strong> <span class="file-path">.../ZW3D/프로그램폴더/apilibs</span></li>
+                </ul>
+
+                <div class="note">
+                    <strong>※ 폴더 위치 확인:</strong> ZW3D → Help > About 또는 Utilities > Configuration에서 확인
+                </div>
+            </div>
+
+            <div class="step-section">
+                <h3><span class="step-number">6</span>실행 확인</h3>
+                <p>ZW3D 실행 후 커맨드라인에 다음 입력:</p>
+                
+                <div class="command-box">
+~MyFunction
+                </div>
+
+                <div class="success">
+                    <strong>→ 메시지 영역에 "Hello World!"가 출력됩니다.</strong>
+                </div>
+
+                <div class="note">
+                    <strong>※</strong> ~MyFunction은 아이콘이나 커스텀 툴바 버튼에 연결할 수도 있습니다. (관련 예제는 문서 후반에 있음)
+                </div>
+            </div>
+        </section>
+
+        <section id="reference">
+            <h2>📎 참고 사항</h2>
+            <div class="warning">
+                <ul>
+                    <li>각 함수의 이름은 <strong>DLL 이름과 매칭</strong>되도록 구성해야 함 (MyLibInit, MyLibExit).</li>
+                    <li>API를 통해 생성한 명령어는 <strong>ZW3D 내부 명령처럼 사용</strong> 가능함.</li>
+                    <li>자세한 내용은 <strong>FAQ 페이지</strong> 참고.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="summary">
+            <h2>✍️ 정리 요약</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>항목</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>API 용도</strong></td>
+                        <td>C 언어 기반 DLL을 통해 ZW3D에 사용자 정의 명령어 등록</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DLL 로딩 방식</strong></td>
+                        <td>실행 시 apilibs 폴더 자동 검색 및 로드</td>
+                    </tr>
+                    <tr>
+                        <td><strong>최소 구성</strong></td>
+                        <td>Init, Exit, 명령 함수, DEF 파일, 헤더/라이브러리</td>
+                    </tr>
+                    <tr>
+                        <td><strong>실행 방법</strong></td>
+                        <td>ZW3D에서 ~함수명 입력 또는 아이콘 연결</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

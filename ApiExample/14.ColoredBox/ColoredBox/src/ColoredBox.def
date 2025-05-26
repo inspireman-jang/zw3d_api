@@ -1,0 +1,6 @@
+LIBRARY ColoredBox.dll
+
+EXPORTS
+    ; Explicit exports can go here
+    ColoredBoxInit
+    ColoredBoxExit

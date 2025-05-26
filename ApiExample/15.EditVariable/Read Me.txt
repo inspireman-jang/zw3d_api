@@ -1,0 +1,3 @@
+The example shows how to realize the following functions with ZW3D APIs:
+
+1.This is used to edit the varablies referenced in the feature .The user enters command "!EditVariable" to active an form. When user selected a feature, the variablies contained in it will be listed, and the user can modify the values of the assocaited variables.

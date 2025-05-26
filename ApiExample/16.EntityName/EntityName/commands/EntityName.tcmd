@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/Template.xsd">
+    <template name="EntityName">
+        <property name="function">EntityName</property>
+        <parameters>
+            <parameter luid="4" name="id4" type="number">
+                <property name="options">min=0,</property>
+            </parameter>
+            <parameter luid="5" name="id5" type="number"/>
+            <parameter luid="6" name="id6" type="string"/>
+            <parameter luid="7" name="id7" type="number">
+                <property name="options">min=0,</property>
+            </parameter>
+        </parameters>
+    </template>
+</templates>

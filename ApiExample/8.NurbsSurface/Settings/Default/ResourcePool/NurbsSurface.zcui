@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Actions system="false">
+	<Action name="ID_!NurbsSurface" type="button">
+		<Form>NurbsSurface</Form>
+		<Text>
+			<Ribbon>NurbsSurface</Ribbon>
+			<Menu>NurbsSurface</Menu>
+		</Text>
+		<Icon>NurbsSurface</Icon>
+		<Hint>Create nurbs surface</Hint>
+		<Help />
+		<Desc>Create an alignment constraint that associates two components or shells in the active part/assembly. </Desc>
+		<Script>!NurbsSurface</Script>
+	</Action>
+</Actions>
+

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1장: ZW3D API 학습</title>
+    <style>
+        body { 
+            font-family: 'Malgun Gothic', Arial, sans-serif; 
+            margin: 20px; 
+            line-height: 1.8; 
+            background-color: #fafafa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #2c5aa0; 
+            border-bottom: 3px solid #2c5aa0; 
+            padding-bottom: 10px;
+            font-size: 2.2em;
+        }
+        h2 { 
+            color: #4a7c59; 
+            margin-top: 30px;
+            font-size: 1.5em;
+            border-left: 4px solid #4a7c59;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #666;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .code-block { 
+            background-color: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 6px; 
+            font-family: 'Consolas', 'Monaco', monospace;
+            border-left: 4px solid #007acc;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .warning {
+            background-color: #f8d7da;
+            padding: 20px;
+            border-left: 5px solid #dc3545;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #d1ecf1;
+            padding: 20px;
+            border-left: 5px solid #17a2b8;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .section { 
+            margin-bottom: 35px; 
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        .interface-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .interface-card {
+            padding: 20px;
+            border-radius: 6px;
+            border: 2px solid #ddd;
+        }
+        .old-interface {
+            background-color: #fff5f5;
+            border-color: #fca5a5;
+        }
+        .new-interface {
+            background-color: #f0fff4;
+            border-color: #86efac;
+        }
+        .function-example {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .memory-example {
+            background-color: #fef3c7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>1장: ZW3D API 학습</h1>
+
+        <div class="section">
+            <h2>1. ZW3D API 소개</h2>
+            <p>ZW3D API는 <strong>C 언어 기반의 개발 인터페이스</strong>를 제공하며, 그 기능은 다음과 같은 다양한 측면을 포괄합니다:</p>
+            <ul>
+                <li><strong>엔티티 생성</strong> - 점, 선, 면, 솔리드 등 기본 형상 요소 생성</li>
+                <li><strong>속성 관리</strong> - 객체의 속성 설정 및 수정</li>
+                <li><strong>정보 쿼리</strong> - 모델 정보 조회 및 분석</li>
+                <li><strong>부품 조립</strong> - 어셈블리 기능 및 구속 조건 설정</li>
+                <li><strong>엔지니어링 도면</strong> - 2D 도면 생성 및 편집</li>
+            </ul>
+            
+            <div class="info">
+                <p><strong>📖 참고 문서:</strong> 인터페이스의 상세한 목록과 기능은 인터페이스와 함께 제공되는 도움말 문서 <strong>"apiHelpDoc.chm"</strong>을 참조하여 개발하고 학습할 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. 구 인터페이스와 신 인터페이스 간 전환</h2>
+            <p>ZW3D의 2차 개발을 더 잘 시작할 수 있도록, 여기서는 ZW3D 2차 개발의 관련 메커니즘을 간략히 소개하여 빠른 이해를 돕겠습니다.</p>
+            
+            <p>ZW3D 플랫폼 기능의 지속적인 업그레이드와 구 인터페이스의 큰 역사적 범위로 인해, 일부 인터페이스의 기능과 적응 범위가 부족하여 사용 요구를 충족할 수 없습니다. 따라서 <strong>2025 버전</strong>에서는 기존 인터페이스를 전면적으로 업그레이드하여 구 인터페이스에 대해 더 강력한 기능을 가진 새로운 인터페이스를 제공합니다.</p>
+
+            <div class="warning">
+                <p><strong>⚠️ 중요 공지:</strong></p>
+                <p>기존 고객의 기존 플러그인 기능을 최대한 보장하기 위해, 구 인터페이스를 <strong>최소 3개 버전</strong>에서 유지할 예정입니다. 그러나 플랫폼 기능의 기계적 변환으로 인해 일부 구 인터페이스의 안정성과 기능 범위가 새로운 인터페이스와 일정한 차이가 있으므로, <strong>구 인터페이스를 새로운 인터페이스로 점진적으로 교체하는 것을 권장</strong>합니다.</p>
+                <p>구 인터페이스에 대한 폐기 선언과 새 인터페이스로의 링크를 제공하므로, 인터페이스의 업그레이드 정보를 빠르게 조회할 수 있습니다.</p>
+            </div>
+
+            <div class="interface-comparison">
+                <div class="interface-card old-interface">
+                    <h3>🔴 구 인터페이스 (cvx로 시작)</h3>
+                    <p><strong>식별 방법:</strong></p>
+                    <ul>
+                        <li>엔티티 번호 <code>"id"</code></li>
+                        <li>엔티티 경로 <code>"Path"</code></li>
+                    </ul>
+                    <p><strong>특징:</strong> 파일 내의 엔티티 객체(예: 구성 요소, 표면)를 식별</p>
+                </div>
+                
+                <div class="interface-card new-interface">
+                    <h3>🟢 새로운 인터페이스 (Zw로 시작)</h3>
+                    <p><strong>식별 방법:</strong></p>
+                    <ul>
+                        <li><code>"Handle"</code>로 식별</li>
+                    </ul>
+                    <p><strong>특징:</strong> 구 인터페이스보다 더 고유하며, 객체에 대한 클래스 작업을 더 직접적으로 쿼리 가능</p>
+                </div>
+            </div>
+
+            <h3>🔄 인터페이스 변환 함수</h3>
+            <p>구 인터페이스 플래그와 새로운 인터페이스 플래그 간의 변환 인터페이스를 제공합니다:</p>
+
+            <div class="function-example">
+                <h4>1️⃣ 구 → 신: 엔티티 ID를 통해 핸들 획득</h4>
+                <div class="code-block">
+                    <code>ezwErrors ZwEntityIdTransfer(int count, const int *indexes, szwEntityHandle *entityHandles);</code>
+                </div>
+            </div>
+
+            <div class="function-example">
+                <h4>2️⃣ 구 → 신: 엔티티 경로를 통해 핸들 획득</h4>
+                <div class="code-block">
+                    <code>ezwErrors ZwEntityPathTransfer(int count, const svxEntPath *entityPaths, szwEntityHandle *entityHandles);</code>
+                </div>
+            </div>
+
+            <div class="function-example">
+                <h4>3️⃣ 신 → 구: 핸들을 통해 엔티티 ID 획득</h4>
+                <div class="code-block">
+                    <code>ezwErrors ZwEntityIdGet(int count, const szwEntityHandle *entityHandles, int *indexes);</code>
+                </div>
+            </div>
+
+            <div class="function-example">
+                <h4>4️⃣ 신 → 구: 핸들을 통해 엔티티 경로 획득</h4>
+                <div class="code-block">
+                    <code>ezwErrors ZwEntityPathGet(int count, const szwEntityHandle *entityHandles, svxEntPath *entityPaths);</code>
+                </div>
+            </div>
+
+            <div class="info">
+                <p><strong>💡 엔티티란?</strong></p>
+                <p>"엔티티"는 우리의 일반적인 클래스 객체로, <strong>점, 선, 면, 몸체, 피처 및 기타 일반적인 모델링 객체의 집합</strong>입니다. 핸들 방법은 구 인터페이스의 객체 식별 방법보다 더 고유하며, 객체에 대한 클래스 작업을 더 직접적으로 쿼리할 수 있습니다.</p>
+            </div>
+
+            <div class="warning">
+                <p><strong>⚠️ 메모리 관리 주의사항:</strong> 핸들 식별 방법은 ZW3D에서 일정량의 메모리가 필요하므로, <strong>인터페이스 사용 후 메모리를 해제해야 합니다.</strong></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. 데이터 초기화</h2>
+            <p>인터페이스를 사용하기 전에 <strong>C 또는 C++ 방법으로 사용할 변수를 초기화</strong>해 주세요. 일부 복잡한 인터페이스의 경우, 매개변수 설정을 용이하게 하기 위해 일치하는 초기화 함수를 제공합니다.</p>
+
+            <div class="info">
+                <p><strong>🔍 초기화 함수 찾기:</strong> 초기화 함수는 <strong>"Init"</strong>으로 끝나며, 인터페이스 이름이나 주석으로 초기화 함수를 빠르게 조회하고 사용할 수 있습니다.</p>
+            </div>
+
+            <p>일부 매개변수의 기본값이 0이 아니므로, 인터페이스를 사용하기 전에 초기화하는 것을 권장합니다.</p>
+
+            <h3>📝 초기화 함수 사용 예제</h3>
+            <div class="function-example">
+                <h4>돌출 피처 인터페이스와 초기화 함수:</h4>
+                <div class="code-block">
+                    <code>ezwErrors ZwFeatureExtrudeInit(szwExtrudeData *extrude);</code><br>
+                    <code>ezwErrors ZwFeatureExtrudeCreate(szwExtrudeData extrude, szwEntityHandle *shapeHandle);</code>
+                </div>
+            </div>
+
+            <div class="note">
+                <p><strong>💡 초기화의 장점:</strong></p>
+                <ul>
+                    <li>인터페이스의 입력 매개변수는 플랫폼 기능 설정에 대응됩니다</li>
+                    <li>플랫폼의 초기값과 일치하는 기본값을 채워 인터페이스 사용 효율성을 향상시킵니다</li>
+                    <li>인터페이스 매개변수의 실제 의미를 파악하는 데 도움이 됩니다</li>
+                    <li>인터페이스의 매개변수가 확실하지 않을 때 관련 주석과 플랫폼의 원래 기능을 비교하여 확인할 수 있습니다</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. 메모리 관리</h2>
+            <p>ZW3D의 일부 인터페이스는 전달한 매개변수에 대해 메모리를 할당하므로, <strong>사용 완료 후 해당 인터페이스를 사용하여 메모리를 해제</strong>해야 메모리 문제를 방지할 수 있습니다.</p>
+
+            <div class="info">
+                <p><strong>📋 메모리 해제 가이드:</strong> 메모리를 해제해야 하는 인터페이스에는 주석이 달려 있으며, 주석에서 언급된 해제 인터페이스나 일반 인터페이스를 사용하여 객체 메모리 관리를 완료할 수 있습니다.</p>
+            </div>
+
+            <h3>🔧 메모리 관리 사용 예제</h3>
+
+            <div class="memory-example">
+                <h4>a) 단일 szwEntityHandle 객체 사용:</h4>
+                <div class="code-block">
+                    <code>szwEntityHandle handle;</code><br>
+                    <code>ZwActiveLCSGet(&handle);</code><br>
+                    <code>ZwEntityHandleFree(&handle);</code>
+                </div>
+                <p>위 코드에서 인터페이스 "ZwActiveLCSGet"은 변수 handle에 메모리를 할당합니다. 변수 handle을 더 이상 사용할 필요가 없을 때 인터페이스 "ZwEntityHandleFree"를 호출하여 할당된 메모리를 해제합니다.</p>
+            </div>
+
+            <div class="memory-example">
+                <h4>b) 알려진 길이의 szwEntityHandle 배열:</h4>
+                <p>이미 고정 길이의 count 변수와 해당 엔티티 id 배열 idList가 있다고 가정:</p>
+                <div class="code-block">
+                    <code>szwEntityHandle handles[count];</code><br>
+                    <code>ZwEntityIdTransfer(count, idList, handles);</code><br>
+                    <code>for (int i = 0; i < count; ++i)</code><br>
+                    <code>{</code><br>
+                    <code>&nbsp;&nbsp;&nbsp;&nbsp;ZwEntityHandleFree(&handles[i]);</code><br>
+                    <code>}</code>
+                </div>
+                <p>new나 alloc을 사용하여 동적으로 메모리를 할당한 경우 관련 메모리를 해제하는 것을 잊지 마세요. 위 코드에서는 배열 handles의 각 멤버에 대해 메모리를 해제해야 합니다.</p>
+            </div>
+
+            <div class="memory-example">
+                <h4>c) 알 수 없는 길이의 szwEntityHandle 배열:</h4>
+                <div class="code-block">
+                    <code>int entityCount = 0;</code><br>
+                    <code>szwEntityHandle *handleList = NULL; // C++의 경우 nullptr</code><br>
+                    <code>ZwCurveListGet(&entityCount, &handleList);</code><br>
+                    <code>ZwEntityHandleListFree(entityCount, &handleList);</code>
+                </div>
+                <p>위 코드에서 인터페이스 "ZwCurveListGet"은 변수 handleList에 메모리를 할당하고 배열의 길이를 출력합니다. 변수 handleList를 더 이상 사용할 필요가 없을 때 인터페이스 "ZwEntityHandleListFree"를 호출하여 할당된 메모리를 해제하세요.</p>
+            </div>
+
+            <div class="memory-example">
+                <h4>d) 특정 해제 인터페이스가 있는 경우:</h4>
+                <div class="code-block">
+                    <code>szwEntityHandle curvehandle;</code><br>
+                    <code>int nurbs;</code><br>
+                    <code>szwCurve curve;</code><br>
+                    <code>ZwCurveNURBSDataGet(curvehandle, nurbs, &curve);</code><br>
+                    <code>ZwEntityHandleFree(&curvehandle);</code><br>
+                    <code>ZwCurveNURBSDataFree(&curve);</code>
+                </div>
+                <p>위 코드에서 인터페이스 "ZwCurveNURBSDataGet"은 curve에 메모리를 할당하며, 사용 완료 후 특정 인터페이스 "ZwCurveNURBSDataFree"를 사용하여 메모리를 해제해야 하고, 사용된 다른 핸들이나 객체에 대한 메모리 해제도 잊지 마세요.</p>
+            </div>
+
+            <div class="memory-example">
+                <h4>e) 자율적으로 메모리 할당:</h4>
+                <div class="code-block">
+                    <code>// "ZwMemoryAlloc" 또는 기타 방법으로 메모리를 할당한 경우</code><br>
+                    <code>// 사용 후에도 해제가 필요합니다</code><br>
+                    <code>ZwMemoryFree(allocatedMemory);</code>
+                </div>
+                <p>"ZwMemoryAlloc" 또는 기타 방법으로 메모리를 할당한 경우에도 사용 후 해제가 필요합니다. "Zw"의 내부 메모리 할당은 "ZwMemoryFree"로 메모리를 해제할 수 있습니다. 사용자 정의 방법으로 메모리를 관리할 때는 자신의 메모리를 해제하세요.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>5. 인터페이스 반환값</h2>
+            <p><strong>ZW3D2025에 추가된 모든 인터페이스는 "ezwErrors"를 반환값으로 사용</strong>합니다. 각 인터페이스 호출 후 반환값을 확인하여 인터페이스가 올바르게 실행되었는지 확인해야 합니다.</p>
+
+            <div class="info">
+                <h3>📊 반환값 상태</h3>
+                <ul>
+                    <li><strong>성공:</strong> <code>"ZW_API_NO_ERROR"</code> 표시</li>
+                    <li><strong>실패:</strong> 인터페이스의 출력 매개변수가 예상과 다름 - 이 경우 출력 결과를 사용하지 마세요</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <p><strong>⚠️ 중요:</strong> 인터페이스 실행이 실패한 경우, 인터페이스의 출력 매개변수는 예상과 다릅니다. 이 경우 출력 결과를 사용하지 마세요.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/Template.xsd">
+    <template name="LayerEntityManager">
+        <property name="function">LayerEntityManager</property>
+        <property name="init_after">LayerEntityManagerInitA</property>
+        <parameters>
+            <parameter luid="1" name="id1" type="option">
+                <property name="options">|auto-log,</property>
+            </parameter>
+            <parameter luid="2" name="id2" type="entity">
+                <property name="list">1</property>
+                <property name="options">/curve/edge/shape/face/point/,</property>
+            </parameter>
+            <parameter description="Color" luid="3" name="id3" type="number">
+                <property name="options">empty_ok,</property>
+            </parameter>
+        </parameters>
+    </template>
+</templates>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/Template.xsd">
+    <template name="ChamferAddAndDelete">
+        <property name="echo_obj">ChamferAddAndDeleteEcho</property>
+        <property name="function">ChamferAddAndDelete</property>
+        <property name="multi_act_parm">true</property>
+        <parameters>
+            <parameter luid="2" name="id2" type="entity">
+                <property name="list">1</property>
+                <property name="callback">ChamferAddAndDeleteCb</property>
+                <property name="options"> /edge/,empty_ok,custom_filter=SameFaceEdge,no_inherit_comp,</property>
+            </parameter>
+            <parameter luid="3" name="id3" type="distance">
+                <property name="options">@sym_dbl=5,min=0, |auto_log</property>
+                <property name="callback">ChamferAddAndDeleteCb</property>
+            </parameter>
+            <parameter luid="4" name="id4" type="option">
+                <property name="callback">ChamferAddAndDeleteCb</property>
+                <property name="active_bind">1</property>
+            </parameter>
+
+            <parameter luid="6" name="id6" type="entity">
+                <property name="list">1</property>
+                <property name="callback">ChamferAddAndDeleteCb</property>
+                <property name="options">/ftr/,empty_ok,custom_filter=LimitDistance,no_inherit_comp,</property>
+            </parameter>
+          
+            <parameter luid="7" name="id7" type="option">
+                <property name="callback">ChamferAddAndDeleteCb</property>
+            </parameter>
+          
+            <parameter luid="8" name="id8" type="distance">
+                <property name="callback">ChamferAddAndDeleteCb</property>
+                <property name="options">@sym_dbl=5,|auto_log</property>
+            </parameter>
+        </parameters>
+    </template>
+</templates>

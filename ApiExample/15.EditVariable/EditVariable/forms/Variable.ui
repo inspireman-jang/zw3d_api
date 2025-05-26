@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Variable</class>
+ <widget class="ZsCc::Form" name="Variable">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>275</width>
+    <height>108</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="functionName">
+   <string notr="true"/>
+  </property>
+  <property name="mode">
+   <enum>ZsCc::Form::Embed</enum>
+  </property>
+  <property name="persistent">
+   <enum>ZsCc::Form::Temporary</enum>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="0">
+    <widget class="QLabel" name="id2label">
+     <property name="text">
+      <string>Value</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="id1label">
+     <property name="text">
+      <string>Expression Name</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="ZsCc::String" name="id1">
+     <property name="id" stdset="0">
+      <number>1</number>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="ZsCc::Number" name="id2">
+     <property name="id" stdset="0">
+      <number>2</number>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ZsCc::Number</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/Template/CcNumber.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::String</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/Template/CcString.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::Form</class>
+   <extends>QDialog</extends>
+   <header>nui/CommonControls/CcForm.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

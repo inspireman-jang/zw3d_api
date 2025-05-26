@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Strategy profileType="UIProfile" environment="2" role="3-Advanced">
+	<DefaultCustomizations>
+		<Insert type="RibbonPage" name="UiNurbsSurfaceTool" topCollection="Layout_2_Z3" leftSibling="#InsertAtLast" />
+	</DefaultCustomizations>
+</Strategy>
+

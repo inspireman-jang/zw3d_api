@@ -1,0 +1,6 @@
+LIBRARY MatrixOperations.dll
+
+EXPORTS
+    ; Explicit exports can go here
+    MatrixOperationsInit
+    MatrixOperationsExit

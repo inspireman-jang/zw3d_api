@@ -1,0 +1,4 @@
+The example shows how to realize the following functions with ZW3D APIs:
+
+1.This is used to created a colored box. User enters command "!ColoredBox" to active an form, then, input the 
+length, width, height and origin to form a box, and specify a color for this new box.

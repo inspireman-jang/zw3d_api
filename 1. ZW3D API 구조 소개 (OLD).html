@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZW3D API 구조 소개</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+        }
+        .module-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .api-item {
+            background-color: white;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+        .header-file {
+            font-family: 'Courier New', monospace;
+            background-color: #f1f2f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .note {
+            background-color: #e8f4fd;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 5px 0;
+            padding: 5px 0;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #2980b9;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📘 ZW3D API 구조 소개</h1>
+        
+        <div class="note">
+            <strong>참고:</strong> API 구조는 앞으로도 지속적으로 확장될 예정입니다.
+        </div>
+
+        <div class="toc">
+            <h3>목차</h3>
+            <ul>
+                <li><a href="#basic-modules">1. 기본 모듈 (Basic Modules)</a></li>
+                <li><a href="#file-module">2. 파일 모듈 (File Module)</a></li>
+                <li><a href="#topology-module">3. 토폴로지 엔티티 모듈 (Topology Entity Module)</a></li>
+                <li><a href="#algorithm-module">4. 알고리즘 모듈 (Algorithm Module)</a></li>
+                <li><a href="#ui-module">5. UI 인터페이스 모듈 (Interface Module)</a></li>
+                <li><a href="#part-module">6. 파트 객체 모듈 (Part Object Module)</a></li>
+                <li><a href="#assembly-module">7. 어셈블리 객체 모듈 (Assembly Object Module)</a></li>
+                <li><a href="#drawing-module">8. 도면 시트 모듈 (Drawing Sheet Object Module)</a></li>
+                <li><a href="#sketch-module">9. 스케치 객체 모듈 (Sketch Object Module)</a></li>
+                <li><a href="#cam-module">10. CAM 모듈 (CAM Module)</a></li>
+                <li><a href="#command-module">11. 명령어 생성 (Command Creation)</a></li>
+                <li><a href="#tool-module">12. 도구 모듈 (Tool Module)</a></li>
+                <li><a href="#pmi-module">13. PMI (Product Manufacturing Information)</a></li>
+                <li><a href="#harness-module">14. 하니스 (Harness)</a></li>
+                <li><a href="#abbreviations">✅ 용어 약어 정리 (Abbreviations)</a></li>
+            </ul>
+        </div>
+
+        <section id="basic-modules" class="module-section">
+            <h2>1. 기본 모듈 (Basic Modules)</h2>
+            <p>ZW3D에서 공통적으로 사용되는 인터페이스, 구조체, 열거형 등을 포함합니다.</p>
+            
+            <h3>1.1 일반 데이터 (General Data)</h3>
+            <div class="api-item">
+                <strong>공통 인터페이스 및 구조 정의</strong><br>
+                헤더 파일: <span class="header-file">zwapi_util.h</span>
+            </div>
+
+            <h3>1.2 환경 설정 (Configuration)</h3>
+            <div class="api-item">
+                <strong>ZW3D의 설정 정보를 가져오거나 수정</strong><br>
+                기본 설정 파일: <span class="header-file">supp/config.xml</span><br>
+                헤더 파일: <span class="header-file">zwapi_config.h</span>
+            </div>
+
+            <h3>1.3 전역 애플리케이션 설정 (Global Application)</h3>
+            <div class="api-item">
+                <strong>단위, 색상, 버전, 언어, 스케치 그리드 설정 등</strong><br>
+                헤더 파일: <span class="header-file">zwapi_global_apply.h</span>
+            </div>
+
+            <h3>1.4 라이선스 (Authorization)</h3>
+            <div class="api-item">
+                <strong>인증 및 라이선스 관련 API</strong><br>
+                헤더 파일: <span class="header-file">zwapi_license.h</span>
+            </div>
+
+            <h3>1.5 디스플레이 (Display)</h3>
+            <div class="api-item">
+                <strong>뷰 영역 표시/숨김, 조명, 배율 설정 등</strong><br>
+                헤더 파일: <span class="header-file">zwapi_display.h</span>
+            </div>
+
+            <h3>1.6 메시지 처리 (Message)</h3>
+            <div class="api-item">
+                <strong>오류, 경고 메시지 출력 등</strong><br>
+                헤더 파일: <span class="header-file">zwapi_message.h</span>
+            </div>
+
+            <h3>1.7 뷰 (View)</h3>
+            <div class="api-item">
+                <strong>일반적인 뷰 관련 API</strong><br>
+                헤더 파일: <span class="header-file">zwapi_view.h</span>
+            </div>
+
+            <h3>1.8 메모리 (Memory)</h3>
+            <div class="api-item">
+                <strong>메모리 해제 관련 API</strong><br>
+                헤더 파일: <span class="header-file">zwapi_memory.h</span>
+            </div>
+
+            <h3>1.9 파일 루트 (File Root)</h3>
+            <div class="api-item">
+                <strong>파일 루트 및 단일/다중 루트 파일 처리</strong><br>
+                헤더 파일: <span class="header-file">zwapi_root.h</span>
+            </div>
+
+            <h3>1.10 레이어 (Layer)</h3>
+            <div class="api-item">
+                <strong>레이어 API</strong><br>
+                헤더 파일: <span class="header-file">zwapi_layer.h</span>
+            </div>
+
+            <h3>1.11 이벤트 (Event)</h3>
+            <div class="api-item">
+                <strong>실행 취소, 다시 실행 관련 API</strong><br>
+                헤더 파일: <span class="header-file">zwapi_xn.h</span>
+            </div>
+
+            <h3>1.12 일반 치수 API (Standard General API)</h3>
+            <div class="api-item">
+                <strong>치수 속성 및 텍스트 처리</strong><br>
+                헤더 파일: <span class="header-file">zwapi_dim.h</span>
+            </div>
+
+            <h3>1.13 일반 수식 API (Expression General API)</h3>
+            <div class="api-item">
+                <strong>수식 처리 API</strong><br>
+                헤더 파일: <span class="header-file">zwapi_var.h</span>
+            </div>
+
+            <h3>1.14 일반 텍스트 API (Text General API)</h3>
+            <div class="api-item">
+                <strong>텍스트 속성 및 처리</strong><br>
+                헤더 파일: <span class="header-file">zwapi_text.h</span>
+            </div>
+
+            <h3>1.15 엔티티 일반 API (Entity General API)</h3>
+            <div class="api-item">
+                <strong>객체 이름, ID, 색상 설정 등</strong><br>
+                헤더 파일: <span class="header-file">zwapi_general_ent.h</span>
+            </div>
+
+            <h3>1.16 사용자 입력 (User Interaction Module)</h3>
+            <div class="api-item">
+                <strong>사용자의 선택 및 입력 처리</strong><br>
+                헤더 파일: <span class="header-file">zwapi_userinput.h</span>
+            </div>
+        </section>
+
+        <section id="file-module" class="module-section">
+            <h2>2. 파일 모듈 (File Module)</h2>
+            <p>파일 열기, 닫기, 저장, 가져오기/내보내기 등과 관련된 API</p>
+
+            <h3>2.1 파일 데이터 구조 (File Data)</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_file_data.h</span>
+            </div>
+
+            <h3>2.2 파일 연산 (File Operation)</h3>
+            <div class="api-item">
+                <strong>파일 조작 API</strong><br>
+                헤더 파일: <span class="header-file">zwapi_file.h</span>
+            </div>
+
+            <h3>2.3 경로 처리 (Path Operation)</h3>
+            <div class="api-item">
+                <strong>경로 및 검색 경로 설정</strong><br>
+                헤더 파일: <span class="header-file">zwapi_file_path.h</span>
+            </div>
+        </section>
+
+        <section id="topology-module" class="module-section">
+            <h2>3. 토폴로지 엔티티 모듈 (Topology Entity Module)</h2>
+            <p>파트 환경에서 브렙(BRep) 엔티티 생성과 관련된 객체 처리</p>
+
+            <h3>3.1 Brep 데이터</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_brep_data.h</span>
+            </div>
+
+            <h3>3.2 형상 API (Shape)</h3>
+            <div class="api-item">
+                <strong>형상 속성 조회</strong><br>
+                헤더 파일: <span class="header-file">zwapi_brep_shape.h</span>
+            </div>
+
+            <h3>3.3 면 API (Face)</h3>
+            <div class="api-item">
+                <strong>서피스 속성 조회</strong><br>
+                헤더 파일: <span class="header-file">zwapi_brep_face.h</span>
+            </div>
+
+            <h3>3.4 엣지 API (Edge)</h3>
+            <div class="api-item">
+                <strong>엣지 속성 조회</strong><br>
+                헤더 파일: <span class="header-file">zwapi_brep_edge.h</span>
+            </div>
+
+            <h3>3.5 UV 엣지 API</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_brep_preedge.h</span>
+            </div>
+
+            <h3>3.6 버텍스 API (Vertex)</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_brep_vertex.h</span>
+            </div>
+        </section>
+
+        <section id="algorithm-module" class="module-section">
+            <h2>4. 알고리즘 모듈 (Algorithm Module)</h2>
+            <p>기하학 계산, 매트릭스 연산, 간섭 체크 등</p>
+
+            <h3>4.1 수학 데이터 (Math Data)</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_math_data.h</span>
+            </div>
+
+            <h3>4.2 일반 연산</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_math.h</span>
+            </div>
+
+            <h3>4.3 바운딩 박스 계산</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_math_bndbox.h</span>
+            </div>
+
+            <h3>4.4 간섭 체크 (Interference)</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_math_insect.h</span>
+            </div>
+
+            <h3>4.5 점 관련 알고리즘</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_math_point.h</span>
+            </div>
+
+            <h3>4.6 벡터 연산</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_math_vector.h</span>
+            </div>
+
+            <h3>4.7 행렬 연산</h3>
+            <div class="api-item">
+                헤더 파일: <span class="header-file">zwapi_math_matrix.h</span>
+            </div>
+        </section>
+
+        <section id="ui-module" class="module-section">
+            <h2>5. UI 인터페이스 모듈 (Interface Module)</h2>
+            <p>UI 구성요소 제어용 API</p>
+
+            <div class="api-item"><strong>폼:</strong> <span class="header-file">zwapi_ui_form.h</span></div>
+            <div class="api-item"><strong>콤보박스:</strong> <span class="header-file">zwapi_ui_combobox.h</span></div>
+            <div class="api-item"><strong>리스트:</strong> <span class="header-file">zwapi_ui_listwidget.h</span></div>
+            <div class="api-item"><strong>테이블:</strong> <span class="header-file">zwapi_ui_tablewidget.h</span></div>
+            <div class="api-item"><strong>탭:</strong> <span class="header-file">zwapi_ui_tabwidget.h</span></div>
+            <div class="api-item"><strong>트리뷰:</strong> <span class="header-file">zwapi_ui_treeview.h</span></div>
+            <div class="api-item"><strong>슬라이더:</strong> <span class="header-file">zwapi_ui_slider.h</span></div>
+            <div class="api-item"><strong>리본:</strong> <span class="header-file">zwapi_ui_ribbon.h</span></div>
+            <div class="api-item"><strong>팝업창:</strong> <span class="header-file">zwapi_ui_popupform.h</span></div>
+            <div class="api-item"><strong>UI 설정:</strong> <span class="header-file">zwapi_ui_guiset.h</span></div>
+            <div class="api-item"><strong>명령 설정:</strong> <span class="header-file">zwapi_ui_command.h</span></div>
+        </section>
+
+        <section id="part-module" class="module-section">
+            <h2>6. 파트 객체 모듈 (Part Object Module)</h2>
+            <p>파트 환경에서 모델 객체 조회, 설정, 속성 등</p>
+
+            <div class="api-item"><strong>기본 데이터:</strong> <span class="header-file">zwapi_part_data.h</span></div>
+            <div class="api-item"><strong>속성:</strong> <span class="header-file">zwapi_part_attribute.h</span></div>
+            <div class="api-item"><strong>히스토리:</strong> <span class="header-file">zwapi_part_history.h</span></div>
+            <div class="api-item"><strong>홀:</strong> <span class="header-file">zwapi_part_hole.h</span></div>
+            <div class="api-item"><strong>파셋:</strong> <span class="header-file">zwapi_part_facets.h</span></div>
+            <div class="api-item"><strong>기준객체:</strong> <span class="header-file">zwapi_part_datum_query.h</span></div>
+            <div class="api-item"><strong>표현식:</strong> <span class="header-file">zwapi_part_var.h</span></div>
+            <div class="api-item"><strong>구성 설정:</strong> <span class="header-file">zwapi_part_config.h</span></div>
+        </section>
+
+        <section id="assembly-module" class="module-section">
+            <h2>7. 어셈블리 객체 모듈 (Assembly Object Module)</h2>
+            <p>조립 환경 관련 객체 및 속성 API</p>
+
+            <div class="api-item"><strong>구성 요소 속성:</strong> <span class="header-file">zwapi_asm_comp_attribute.h</span></div>
+            <div class="api-item"><strong>삽입/조립:</strong> <span class="header-file">zwapi_asm_comp.h</span></div>
+            <div class="api-item"><strong>구속 조건:</strong> <span class="header-file">zwapi_asm_constraint.h</span></div>
+            <div class="api-item"><strong>재사용 라이브러리:</strong> <span class="header-file">zwapi_asm_reuselibrary.h</span></div>
+        </section>
+
+        <section id="drawing-module" class="module-section">
+            <h2>8. 도면 시트 모듈 (Drawing Sheet Object Module)</h2>
+            <p>2D 도면 관련 객체 및 속성 처리</p>
+
+            <div class="api-item"><strong>도면 속성:</strong> <span class="header-file">zwapi_dwg_attribute.h</span></div>
+            <div class="api-item"><strong>뷰, 치수, 기호, 표, 도형 등:</strong> 각종 <span class="header-file">zwapi_dwg_*.h</span></div>
+        </section>
+
+        <section id="sketch-module" class="module-section">
+            <h2>9. 스케치 객체 모듈 (Sketch Object Module)</h2>
+            <p>스케치 환경에서의 객체 생성 및 처리</p>
+
+            <div class="api-item"><strong>데이터 구조:</strong> <span class="header-file">zwapi_sk_data.h</span></div>
+            <div class="api-item"><strong>지오메트리 객체:</strong> <span class="header-file">zwapi_sk_objs.h</span></div>
+            <div class="api-item"><strong>치수:</strong> <span class="header-file">zwapi_sk_dim.h</span></div>
+            <div class="api-item"><strong>수식:</strong> <span class="header-file">zwapi_sk_var.h</span></div>
+            <div class="api-item"><strong>연산:</strong> <span class="header-file">zwapi_sk_opts.h</span></div>
+        </section>
+
+        <section id="cam-module" class="module-section">
+            <h2>10. CAM 모듈 (CAM Module)</h2>
+            <p>가공 환경 관련 속성, 기계, 공정, 도구 생성 및 제어</p>
+
+            <div class="api-item"><strong>파트/트리/기계/공정 등:</strong> <span class="header-file">zwapi_cm_*.h</span></div>
+        </section>
+
+        <section id="command-module" class="module-section">
+            <h2>11. 명령어 생성 (Command Creation)</h2>
+            <p>리본 메뉴 기준 명령어 분류 및 정의</p>
+
+            <div class="api-item"><strong>공통 데이터 및 명령:</strong> <span class="header-file">zwapi_cmd.h</span>, <span class="header-file">zwapi_cmd_data.h</span></div>
+            <div class="api-item"><strong>파트/어셈블리/시트/스케치 명령:</strong> <span class="header-file">zwapi_cmd_*.h</span></div>
+        </section>
+
+        <section id="tool-module" class="module-section">
+            <h2>12. 도구 모듈 (Tool Module)</h2>
+            <p>엔티티 경로 등 기본 도구 API</p>
+
+            <div class="api-item"><strong>엔티티 경로:</strong> <span class="header-file">zwapi_tool_entpath.h</span></div>
+        </section>
+
+        <section id="pmi-module" class="module-section">
+            <h2>13. PMI (Product Manufacturing Information)</h2>
+            <p>치수 정보, 기호 등 제조 정보 처리</p>
+
+            <div class="api-item"><strong>PMI 객체 조회:</strong> <span class="header-file">zwapi_pmi.h</span></div>
+        </section>
+
+        <section id="harness-module" class="module-section">
+            <h2>14. 하니스 (Harness)</h2>
+            <p>와이어링/하니스 관련 API</p>
+
+            <div class="api-item"><strong>하니스 처리:</strong> <span class="header-file">zwapi_harness.h</span></div>
+        </section>
+
+        <section id="abbreviations" class="module-section">
+            <h2>✅ 용어 약어 정리 (Abbreviations)</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>약어</th>
+                        <th>의미</th>
+                        <th>약어</th>
+                        <th>의미</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Asm</td>
+                        <td>Assembly (조립)</td>
+                        <td>Obj</td>
+                        <td>Object (객체)</td>
+                    </tr>
+                    <tr>
+                        <td>Dwg</td>
+                        <td>Drawing (도면)</td>
+                        <td>Pnt</td>
+                        <td>Point (점)</td>
+                    </tr>
+                    <tr>
+                        <td>Sk</td>
+                        <td>Sketch (스케치)</td>
+                        <td>Shp</td>
+                        <td>Shape (형상)</td>
+                    </tr>
+                    <tr>
+                        <td>Cm</td>
+                        <td>CAM (가공)</td>
+                        <td>Fac</td>
+                        <td>Face (면)</td>
+                    </tr>
+                    <tr>
+                        <td>Dim</td>
+                        <td>Dimension (치수)</td>
+                        <td>Edg</td>
+                        <td>Edge (엣지)</td>
+                    </tr>
+                    <tr>
+                        <td>Var</td>
+                        <td>Variable (수식)</td>
+                        <td>Parm</td>
+                        <td>Parameter (파라미터)</td>
+                    </tr>
+                    <tr>
+                        <td>Crv</td>
+                        <td>Curve (곡선)</td>
+                        <td>Tpl</td>
+                        <td>Template (템플릿)</td>
+                    </tr>
+                    <tr>
+                        <td>Srf</td>
+                        <td>Surface (표면)</td>
+                        <td>Comp</td>
+                        <td>Component (구성요소)</td>
+                    </tr>
+                    <tr>
+                        <td>Ent</td>
+                        <td>Entity (엔티티)</td>
+                        <td>At</td>
+                        <td>Attribute (속성)</td>
+                    </tr>
+                    <tr>
+                        <td>Vis</td>
+                        <td>Visibility (표시)</td>
+                        <td>Mod</td>
+                        <td>Modify (수정)</td>
+                    </tr>
+                    <tr>
+                        <td>Cmd</td>
+                        <td>Command (명령)</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="note">
+            <h3>ZW3D 2025 AI 기능</h3>
+            <p>ZW3D 2025에서는 AI 기반 도구들이 추가되어 API 개발 효율성이 크게 향상되었습니다:</p>
+            <ul>
+                <li><strong>Command Advisor:</strong> 사용자 행동 분석을 통한 효율적인 설계 지원</li>
+                <li><strong>API 어시스턴트:</strong> 자연어를 통한 API 코드 자동 생성</li>
+                <li><strong>모델 매칭:</strong> 3D 모델 자동 식별 및 검색</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

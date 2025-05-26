@@ -1,0 +1,2 @@
+The example shows how to realize the following functions with ZW3D APIs:
+1. This is used to naming entities in the order of layers.

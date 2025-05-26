@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>optionForm</class>
+ <widget class="ZsCc::Form" name="optionForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>331</width>
+    <height>255</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="functionName">
+   <string notr="true">Command dome</string>
+  </property>
+  <property name="mode">
+   <enum>ZsCc::Form::Dockable</enum>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="ZsCc::DrawbackBoxGroup" name="DrawbackBoxGroup">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="page_0">
+      <property name="windowTitle">
+       <string>Required</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_0">
+       <item row="5" column="0">
+        <widget class="QLabel" name="id6label">
+         <property name="text">
+          <string>Label</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="ZsCc::String" name="id6">
+         <property name="id" stdset="0">
+          <number>6</number>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="id7label">
+         <property name="text">
+          <string>Number</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="NameLable">
+         <property name="text">
+          <string>Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="id5label">
+         <property name="text">
+          <string>End Layer</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="id4label">
+         <property name="text">
+          <string>Start Layer</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="ZsCc::Number" name="id7">
+         <property name="id" stdset="0">
+          <number>7</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="ZsCc::Number" name="id5">
+         <property name="id" stdset="0">
+          <number>5</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="ZsCc::Number" name="id4">
+         <property name="id" stdset="0">
+          <number>4</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_1">
+      <property name="windowTitle">
+       <string>Optional</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_1"/>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ZsCc::Number</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/Template/CcNumber.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::String</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/Template/CcString.hpp</header>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::DrawbackBoxGroup</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/CcDrawbackBoxGroup.hpp</header>
+   <addpagemethod>addPage</addpagemethod>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::Form</class>
+   <extends>QDialog</extends>
+   <header>nui/CommonControls/CcForm.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

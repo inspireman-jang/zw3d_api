@@ -1,0 +1,6 @@
+LIBRARY ChamferAddAndDelete.dll
+
+EXPORTS
+    ; Explicit exports can go here
+    ChamferAddAndDeleteInit
+    ChamferAddAndDeleteExit

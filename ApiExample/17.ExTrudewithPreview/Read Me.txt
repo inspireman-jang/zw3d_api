@@ -1,0 +1,3 @@
+The example shows how to realize the following functions with ZW3D APIs:
+
+1.This is used to realize the preview with extrude. The user enters command "!ExTrudewithPreview" to active an form. User can select curve or curve list or sketch to extrude.

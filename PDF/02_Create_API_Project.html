@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2장: ZW3D API 프로젝트 생성</title>
+    <style>
+        body { 
+            font-family: 'Malgun Gothic', Arial, sans-serif; 
+            margin: 20px; 
+            line-height: 1.8; 
+            background-color: #fafafa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #2c5aa0; 
+            border-bottom: 3px solid #2c5aa0; 
+            padding-bottom: 10px;
+            font-size: 2.2em;
+        }
+        h2 { 
+            color: #4a7c59; 
+            margin-top: 30px;
+            font-size: 1.5em;
+            border-left: 4px solid #4a7c59;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #666;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .code-block { 
+            background-color: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 6px; 
+            font-family: 'Consolas', 'Monaco', monospace;
+            border-left: 4px solid #007acc;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .note { 
+            background-color: #fff3cd; 
+            padding: 20px; 
+            border-left: 5px solid #ffc107; 
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background-color: #f8d7da;
+            padding: 20px;
+            border-left: 5px solid #dc3545;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #d1ecf1;
+            padding: 20px;
+            border-left: 5px solid #17a2b8;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .section { 
+            margin-bottom: 35px; 
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        .requirements {
+            background-color: #e3f2fd;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        .step-card {
+            background-color: #fff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .method-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #6c757d;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .file-structure {
+            background-color: #f1f3f4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>2장: ZW3D API 프로젝트 생성</h1>
+
+        <div class="section">
+            <h2>1. 시스템 요구사항</h2>
+            <div class="requirements">
+                <h3>📋 필수 시스템 요구사항</h3>
+                <ul>
+                    <li><strong>운영체제:</strong> Windows 7 SP1 또는 Windows 10 또는 Windows 11 (Windows 10 권장)</li>
+                    <li><strong>개발환경:</strong> Visual Studio 2019 (또는 C/C++용 다른 IDE)</li>
+                    <li><strong>ZW3D 버전:</strong> ZW3D 2023 이상 (현재 ZW3D 버전과 일치하는 것을 권장)</li>
+                    <li><strong>UI 개발:</strong> Qt5.9.7 (Windows용)</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <p><strong>📝 참고:</strong> Qt 설치 후 4장의 방법을 참조하여 UI 편집 플러그인을 설치하면, ZW3D에서 제공하는 사용자 정의 컨트롤을 사용하여 ZW3D 플랫폼에서 UI 디자인을 완료할 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. ZW3D 템플릿으로 시작하기</h2>
+            <p>복잡한 환경 구성 작업을 절약하고 ZW3D 2차 개발을 빠르게 수행할 수 있도록 ZW3D 템플릿을 제공합니다. api 폴더 내에서 <strong>"ZW3DTemplateVSIXProject.vsix"</strong>라는 Visual Studio 플러그인 설치 프로그램을 찾으세요.</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>템플릿 설치</h3>
+                <p>설치 프로그램을 더블클릭하면 로컬 Visual Studio 플랫폼을 자동으로 감지하고(2017, 2019, 2022 버전에 적응), 프롬프트에 따라 마법사 템플릿을 더블클릭하여 설치합니다. 설치에는 몇 분이 소요될 수 있습니다.</p>
+                <p>설치하려는 버전을 선택하고 <strong>Install</strong>을 클릭하여 해당 2차 개발 마법사 템플릿을 자동으로 설치합니다. 설치가 성공하면 해당 프롬프트가 표시됩니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>프로젝트 생성</h3>
+                <p>Visual Studio 버전에 따라 템플릿을 선택하여 개발 프로젝트를 직접 생성합니다.</p>
+                <div class="info">
+                    <p><strong>새 프로젝트 만들기</strong> → <strong>최근 프로젝트 템플릿</strong> → <strong>Dynamic-Link Library (DLL)</strong> 선택</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>프로젝트 구성</h3>
+                <p><strong>"HelloZW3DAPI"</strong>라는 개발 프로젝트를 생성합니다.</p>
+                <div class="file-structure">
+                    프로젝트 이름: HelloZW3DAPI<br>
+                    위치: D:\ZW3D\training\API_Training\<br>
+                    솔루션 이름: HelloZW3DAPI
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>템플릿 구조</h3>
+                <p>템플릿에는 편집용 프로젝트 템플릿과 테스트 케이스가 포함되어 있습니다.</p>
+                <div class="file-structure">
+                    Solution 'HelloZW3DAPI'<br>
+                    ├── HelloZW3DAPI<br>
+                    │   ├── References<br>
+                    │   ├── External Dependencies<br>
+                    │   ├── inc<br>
+                    │   │   └── HelloZW3DAPIPr.h<br>
+                    │   ├── Resource Files<br>
+                    │   └── src<br>
+                    │       ├── CustomCommand.cpp<br>
+                    │       ├── FormCommand.cpp<br>
+                    │       ├── HelloZW3DAPI.def<br>
+                    │       ├── main.cpp<br>
+                    │       └── TemplateCommand.cpp
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">e</span>테스트 케이스 확인</h3>
+                <p><strong>"CustomCommand.cpp"</strong>를 열어 제공된 테스트 케이스 <strong>"HelloZW3DAPI"</strong>를 확인할 수 있습니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">f</span>템플릿 제거</h3>
+                <p>개발 도구를 제거해야 하는 경우, Visual Studio의 플러그인 관리를 통해 해당 템플릿 플러그인 <strong>"ZW3DTemplateVSIXProject"</strong>를 찾아 제거를 클릭하고 지침에 따라 개발 템플릿을 제거할 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. 환경 구성</h2>
+            <p>컴퓨터에 ZW3D 프로그램이 설치되지 않았거나, 마법사 템플릿이 사용되지 않거나, 기타 이유로 엔지니어링 환경에 문제가 발생한 경우, 아래 지침에 따라 파일을 생성하고 환경을 구성할 수 있습니다.</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>헤더 파일 생성</h3>
+                <p>2차 개발 마법사 템플릿의 내용을 기반으로 <strong>"HelloZW3DAPI.h"</strong>를 생성합니다.</p>
+                <div class="code-block">
+                    <code>
+#ifndef HELLOZW3DAPI_H<br>
+#define HELLOZW3DAPI_H<br>
+#include "VXApi.h"<br>
+<br>
+int HelloZW3DAPIInit(int format, void *data);<br>
+int HelloZW3DAPIExit(void);<br>
+int HelloZW3DAPI(void);<br>
+<br>
+#endif
+                    </code>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>소스 파일 생성</h3>
+                <p>2차 개발 마법사 템플릿을 사용하여 <strong>"HelloZW3DAPI.cpp"</strong>를 생성합니다.</p>
+                <div class="code-block">
+                    <code>
+#include "HelloZW3DAPI.h"<br>
+<br>
+int HelloZW3DAPIInit(int format, void *data)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxCmdFunc("HelloZW3DAPI", (void*)HelloZW3DAPI, VX_CODE_GENERAL);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+}<br>
+<br>
+int HelloZW3DAPIExit(void)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxCmdFuncUnload("HelloZW3DAPI");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+}<br>
+<br>
+int HelloZW3DAPI(void)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxMsgDisp("Hello ZW3D API!");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>모듈 정의 파일 생성</h3>
+                <p>2차 개발 마법사 템플릿의 내용을 기반으로 <strong>"HelloZW3DAPI.def"</strong>를 생성합니다.</p>
+                <div class="code-block">
+                    <code>
+LIBRARY HelloZW3DAPI.dll<br>
+EXPORTS<br>
+HelloZW3DAPIInit<br>
+HelloZW3DAPIExit<br>
+HelloZW3DAPI
+                    </code>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>프로젝트에 파일 추가</h3>
+                <p><strong>"HelloZW3DAPI.h"</strong>, <strong>"HelloZW3DAPI.cpp"</strong>, <strong>"HelloZW3DAPI.def"</strong>를 프로젝트에 추가합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">e</span>헤더 디렉토리 설정</h3>
+                <p>프로젝트를 마우스 오른쪽 버튼으로 클릭하고 속성을 선택한 후, ZW3D API 헤더 디렉토리를 <strong>C/C++ → 일반 → 추가 포함 디렉토리</strong>에 추가합니다.</p>
+                <div class="code-block">
+                    <code>C:\Program Files\ZWSOFT\ZW3D 2025\api\inc;</code>
+                </div>
+                <div class="note">
+                    <p><strong>참고:</strong> ZW3D 2024 이전 버전인 경우 포함 디렉토리에서 "inc"를 제거해야 합니다.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">f</span>라이브러리 디렉토리 설정</h3>
+                <p>ZW3D API 라이브러리 파일 디렉토리를 <strong>링커 → 일반 → 추가 라이브러리 디렉토리</strong>에 추가합니다.</p>
+                <div class="code-block">
+                    <code>C:\Program Files\ZWSOFT\ZW3D 2025\api\lib;</code>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">g</span>라이브러리 및 모듈 정의 파일 설정</h3>
+                <p>ZW3D API 라이브러리를 <strong>링커 → 입력 → 추가 종속성</strong>에 추가합니다. 그런 다음 def 파일을 <strong>링커 → 입력 → 모듈 정의 파일</strong>에 추가합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">h</span>리소스 컴파일 설정</h3>
+                <p>리소스를 컴파일하려면 <strong>빌드 이벤트 → 빌드 후 이벤트 → 명령줄</strong>에 명령줄을 추가합니다.</p>
+                <div class="code-block">
+                    <code>IF EXIST "$(ZW3D_DIR)zrc.exe" "$(ZW3D_DIR)zrc.exe" "$(SolutionDir)." -o "$(TargetDir)$(ProjectName).zrc"</code>
+                </div>
+                <div class="note">
+                    <p><strong>참고:</strong> 명령은 연속적인 한 줄의 내용이므로 두 줄로 처리하지 마세요. 리소스 파일이 없으면 추가하지 않아도 되며, "ZW3D_DIR"은 ZW3D 설치 경로 값을 가진 환경 변수입니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. 프로젝트 생성</h2>
+            <p>이 프로젝트를 마우스 오른쪽 버튼으로 클릭하여 프로젝트를 빌드합니다. 그러면 <strong>"...HelloZW3DAPI\x64\Release\HelloZW3DAPI.dll"</strong> 디렉토리에서 <strong>"HelloZW3DAPI.dll"</strong>을 찾을 수 있습니다.</p>
+
+            <div class="success">
+                <p><strong>✅ 빌드 성공 메시지:</strong></p>
+                <div class="code-block">
+                    <code>
+1>Finished generating code<br>
+1>HelloZW3DAPI.vcxproj -> C:\ZW3D\training\API_Training\HelloZW3DAPI\x64\Release\HelloZW3DAPI.dll<br>
+1>Done building project "HelloZW3DAPI.vcxproj"<br>
+========= Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+                    </code>
+                </div>
+            </div>
+
+            <div class="note">
+                <p><strong>참고:</strong> "Release" 디렉토리는 프로젝트 구성에 따라 달라지며, "Debug"로 프로젝트를 빌드하면 "Debug"가 됩니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>5. DLL 파일 로드</h2>
+            <p>DLL 파일을 로드하는 여러 가지 방법을 제공합니다:</p>
+
+            <div class="method-card">
+                <h3>🔧 방법 1: ZW3D 애플리케이션 관리자 사용</h3>
+                <p>ZW3D 애플리케이션 관리자를 사용하여 DLL을 로드하면 출력 대화상자에 명령이 실패했는지 성공했는지를 보여주는 메시지가 표시됩니다.</p>
+                <div class="note">
+                    <p><strong>참고:</strong> 이 경로는 ZW3D가 닫힐 때 레지스트리에 기억되며, 다음에 자동으로 경로를 따라 파일을 로드합니다.</p>
+                </div>
+            </div>
+
+            <div class="method-card">
+                <h3>📁 방법 2: 사용자 디렉토리에 복사</h3>
+                <p>HelloZW3DAPI.dll을 사용자 디렉토리의 "apilibs" 폴더에 복사하고 ZW3D를 실행합니다.</p>
+                <div class="code-block">
+                    <code>%appdata%\ZWSOFT\ZW3D\ZW3D2025\custom\apilibs</code>
+                </div>
+                <div class="note">
+                    <p><strong>참고:</strong> ZW3D는 "apilibs" 폴더에서 애플리케이션을 검색하며, 있으면 로드됩니다.</p>
+                </div>
+            </div>
+
+            <div class="method-card">
+                <h3>🏢 방법 3: 설치 디렉토리에 복사</h3>
+                <p>ZW3D 설치 디렉토리에 "apilibs" 폴더를 생성한 후 "HelloZW3DAPI.dll"을 폴더에 복사하고 ZW3D를 시작하면 이 폴더의 애플리케이션도 로드됩니다.</p>
+            </div>
+
+            <div class="method-card">
+                <h3>⚙️ 방법 4: 지정된 경로에서 리소스 파일 등록 및 로드 (권장)</h3>
+                <p>이 방법은 2차 개발 플러그인에 더 권장됩니다.</p>
+                
+                <div class="step-card">
+                    <h4><span class="step-number">a</span>파일 배치</h4>
+                    <p>HelloZW3DAPI.dll 및 기타 리소스 파일을 사용자 디렉토리에 배치할 수 있습니다:</p>
+                    <div class="code-block">
+                        <code>...\Desktop\ZW3D\ZW3D2025\mydll</code>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h4><span class="step-number">b</span>검색 경로 등록</h4>
+                    <p>플러그인 초기화 중에 "ZwResourcePathAdd"를 호출하여 검색 경로를 등록해야 합니다:</p>
+                    <div class="code-block">
+                        <code>ZwResourcePathAdd("...\Desktop\ZW3D\ZW3D2025\mydll");</code>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h4><span class="step-number">c</span>레지스트리 설정</h4>
+                    <p>ZW3D를 열기 전에 레지스트리의 "HKEY_CURRENT_USER\Software\ZWSOFT\ZW3D"에 리소스 정보를 추가해야 합니다.</p>
+                    <p>ZW3D 버전 29.00(2025)에 해당하는 플러그인 레지스트리 "ZW3D 29.00\en_US\Plugin_x64"에서 새 키를 생성하고 다음 내용을 추가해야 합니다:</p>
+                    <ul>
+                        <li><strong>Application:</strong> dll 파일의 이름</li>
+                        <li><strong>Description:</strong> 플러그인 설명</li>
+                        <li><strong>load:</strong> 플러그인 로딩 마크, 7로 설정</li>
+                        <li><strong>Location:</strong> dll이 위치한 폴더</li>
+                        <li><strong>Resource:</strong> 템플릿 명령 생성 시 추가해야 하는 zrc 파일의 완전한 경로</li>
+                    </ul>
+                </div>
+
+                <div class="step-card">
+                    <h4><span class="step-number">d</span>다중 zrc 파일 등록</h4>
+                    <p>단일 dll에 대해 여러 관련 zrc 파일을 등록해야 하는 경우, ZwResourceFileRegister를 사용하여 필요한 zrc 파일을 등록할 수 있습니다. 이 인터페이스는 절대 경로를 통한 zrc 파일 로딩을 지원합니다.</p>
+                </div>
+
+                <div class="note">
+                    <p><strong>⚠️ 중요:</strong> ZW3D가 활성화되면 레지스트리의 관련 정보를 자동으로 읽고 지정된 경로에서 플러그인과 리소스 파일을 로드합니다. 레지스트리 수정은 ZW3D가 활성화되지 않은 상태에서 수행해야 하며, 그렇지 않으면 변경사항이 적용되지 않습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>6. 애플리케이션 실행</h2>
+            <p>명령줄에 <strong>"~HelloZW3DAPI"</strong>를 입력하고 Enter를 누르세요. 출력 대화상자에 <strong>"Hello ZW3D API!"</strong>가 표시되는 것을 확인할 수 있습니다.</p>
+
+            <div class="note">
+                <p><strong>💡 명령 이름 지정 팁:</strong> 함수 이름은 임의의 이름으로 정의할 수 있지만, 동일한 이름의 명령을 방지하기 위해 이름을 사용자 정의할 때 사용자 정의 사양이나 접두사를 사용하여 중복된 명령 이름으로 인한 등록 실패를 방지하는 것이 좋습니다. 함수를 등록할 때 반환값에 주의해야 하며, 이름이 이미 처리된 경우 인터페이스가 실패를 반환합니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>7. 애플리케이션 디버깅</h2>
+            <p>애플리케이션을 디버깅하는 두 가지 방법을 제공합니다:</p>
+
+            <div class="method-card">
+                <h3>🔍 방법 1: 프로젝트 디버그 명령 설정</h3>
+                <p>프로젝트를 마우스 오른쪽 버튼으로 클릭하고 디버그 명령을 설정합니다. 로컬 Windows 디버거를 실행하거나 F5를 눌러 디버깅을 시작합니다.</p>
+                <div class="info">
+                    <p><strong>설정 경로:</strong> 프로젝트 속성 → 디버깅 → 명령</p>
+                    <p>ZW3D 실행 파일 경로를 지정합니다.</p>
+                </div>
+            </div>
+
+            <div class="method-card">
+                <h3>🔗 방법 2: 프로세스에 연결</h3>
+                <p>ZW3D가 켜져 있고 dll 파일이 로드된 상태에서 디버깅의 프로세스에 연결을 통해 프로젝트를 ZW3D에 연결합니다.</p>
+                <div class="info">
+                    <p><strong>연결 방법:</strong> 디버그 → 프로세스에 연결 → zw3d.exe 선택</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>8. 중단점 설정</h2>
+            <p>main.cpp에 중단점을 설정합니다. 디버깅할 때 다음을 확인할 수 있습니다:</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>DLL 로드 시</h3>
+                <p>DLL이 로드되면 디버거가 <strong>HelloZW3DAPIInit()</strong>으로 들어갑니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>명령 실행 시</h3>
+                <p>"~HelloZW3DAPI"와 같은 명령을 실행하면 디버거가 관련 함수로 들어갑니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>애플리케이션 제거 시</h3>
+                <p>애플리케이션이 제거되면 디버거가 <strong>HelloZW3DAPIExit()</strong>로 들어갑니다.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

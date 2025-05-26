@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/Template.xsd">
+    <template name="OptAuxframe">
+		<property name="function">OptAuxframe</property>
+        <property name="term">OptAuxframeTerm</property>
+        <property name="echo_obj">OptAuxframeEO</property>
+        <parameters>
+            <parameter luid="1" type="entity">
+                <property name="options">/shape/,</property>
+                <property name="callback">OptAuxframeCb</property>
+            </parameter>
+			<parameter trigger="true" luid="100" type="continue">
+				<property name="options">~CdSkipEnd,</property>
+				<property name="prompt">&lt;middle-click&gt; to finish.</property>
+			</parameter>
+            <parameter luid="101" type="point">
+                <property name="options">/Eface/Ecurve/Eedge/Epoint/,ftr_edit_no,</property>
+                <property name="next">100</property>
+				<property name="callback">OptAuxframeCb</property>
+				<property name="prompt">Select &quot;TO&quot; point for frame origin.</property>
+            </parameter>
+            <parameter luid="102" type="point">
+                <property name="options">/Edir/,get_dir,no_qpick_echo,qpick_on,empty_ok,ftr_edit_no,</property>
+                <property name="next">100</property>
+				<property name="callback">OptAuxframeCb</property>
+				<property name="prompt">Select move direction.</property>
+            </parameter>
+            <parameter luid="103" type="point">
+                <property name="options">/Edir/,get_dir,no_qpick_echo,qpick_on,empty_ok,ftr_edit_no,</property>
+                <property name="next">100</property>
+				<property name="callback">OptAuxframeCb</property>
+				<property name="prompt">Select move direction.</property>
+            </parameter>
+            <parameter luid="104" type="point">
+                <property name="options">/Edir/,get_dir,no_qpick_echo,qpick_on,empty_ok,ftr_edit_no,</property>
+                <property name="next">100</property>
+				<property name="callback">OptAuxframeCb</property>
+				<property name="prompt">Select move direction.</property>
+            </parameter>
+        </parameters>
+		<!-- Field 201: matrix -->
+    </template>
+</templates>

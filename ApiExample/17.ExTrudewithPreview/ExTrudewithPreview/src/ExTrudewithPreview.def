@@ -1,0 +1,6 @@
+LIBRARY ExTrudewithPreview.dll
+
+EXPORTS
+    ; Explicit exports can go here
+    ExTrudewithPreviewInit
+    ExTrudewithPreviewExit

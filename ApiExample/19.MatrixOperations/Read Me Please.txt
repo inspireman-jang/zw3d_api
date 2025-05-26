@@ -1,0 +1,4 @@
+The example shows how to realize the following functions with ZW3D APIs:
+
+1.This is a matrix operation utility. the user enters command to active an form, through the interactive to specify the matrix operation type and the input matrix, the tool will output matrix calculation results:
+    Use "~ShowFormMatrixOperations" to active command.

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<RibbonPages>
+	<RibbonPage name="UiNurbsSurfaceTool" text="NurbsSurface" visible="true">
+		<RibbonGroup name="Create" text="Create" visible="true">
+			<GroupPanel name="Create_GroupPanel">
+				<Control action="ID_!NurbsSurface" visible="true" buttonStyle="3" />
+			</GroupPanel>
+			<GroupMenu name="Create_GroupMenu" visible="true" />
+		</RibbonGroup>
+	</RibbonPage>
+</RibbonPages>
+

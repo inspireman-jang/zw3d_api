@@ -1,0 +1,5 @@
+The example shows how to realize the following functions with ZW3D APIs:
+
+1.This is used to realize edge selection chamfering or delete specified edge chamfering features. 
+The user can specify whether to chamfer only edges from the sanme face or to delete the chamfers
+created by a certain distance.

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6장: FAQ (자주 묻는 질문)</title>
+    <style>
+        body { 
+            font-family: 'Malgun Gothic', Arial, sans-serif; 
+            margin: 20px; 
+            line-height: 1.8; 
+            background-color: #fafafa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #2c5aa0; 
+            border-bottom: 3px solid #2c5aa0; 
+            padding-bottom: 10px;
+            font-size: 2.2em;
+        }
+        h2 { 
+            color: #4a7c59; 
+            margin-top: 30px;
+            font-size: 1.5em;
+            border-left: 4px solid #4a7c59;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #666;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .code-block { 
+            background-color: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 6px; 
+            font-family: 'Consolas', 'Monaco', monospace;
+            border-left: 4px solid #007acc;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .note { 
+            background-color: #fff3cd; 
+            padding: 20px; 
+            border-left: 5px solid #ffc107; 
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background-color: #f8d7da;
+            padding: 20px;
+            border-left: 5px solid #dc3545;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #d1ecf1;
+            padding: 20px;
+            border-left: 5px solid #17a2b8;
+            margin: 20px 0;
+            border-radius: 4px;
+        } 
+        .section { 
+            margin-bottom: 35px; 
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        .faq-item {
+            background-color: #fff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        .answer {
+            padding-left: 10px;
+        }
+        .registry-table {
+            background-color: #f1f3f4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>6장: FAQ (자주 묻는 질문)</h1>
+
+        <div class="section">
+            <div class="faq-item">
+                <div class="question">Q1. ZW3D 레지스트리 정보를 어떻게 조회하나요?</div>
+                <div class="answer">
+                    <p>ZW3D의 레지스트리 정보는 레지스트리 관리자에 저장되어 있으며, <strong>"HKEY_LOCAL_MACHINE\SOFTWARE\ZWSOFT\ZW3D"</strong>에서 ZW3D 버전 정보를 찾을 수 있습니다.</p>
+                    
+                    <ul>
+                        <li>루트 디렉토리의 <strong>"CurrentVersion"</strong>은 마지막으로 실행한 버전을 기억합니다</li>
+                        <li>특정 버전 디렉토리의 <strong>"CurrentVersion"</strong>은 마지막으로 실행한 언어를 기억합니다</li>
+                        <li>각 언어 디렉토리에서 설치 경로와 같은 자세한 정보를 얻을 수 있습니다</li>
+                    </ul>
+
+                    <div class="registry-table">
+                        <strong>레지스트리 경로:</strong><br>
+                        HKEY_LOCAL_MACHINE\SOFTWARE\ZWSOFT\ZW3D\ZW3D 2024<br>
+                        ├── CurrentLang: en_US<br>
+                        ├── DisplayName: Standard<br>
+                        ├── DisplayVersion: 15.0.23.0728<br>
+                        ├── InstallLocation: C:\Program Files\ZWSOFT\ZW3D 2024\<br>
+                        └── ProductName: ZW3D 2024
+                    </div>
+
+                    <p>레지스트리 관리자의 <strong>"HKEY_CURRENT_USER\Software\ZWSOFT\ZW3D"</strong>에는 리소스 정보가 포함되어 있습니다. 해당 버전의 <strong>"Plugin_x64"</strong>에서 현재 플러그인 구성 정보를 보고 관리할 수 있으며, 2장 5절의 플러그인 구성 표를 참조하여 플러그인의 자동 설치 및 제거를 완료할 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q2. DLL과 ZRC 관련 리소스를 어디에 배치해야 ZW3D 시작 시 자동으로 로드되나요?</div>
+                <div class="answer">
+                    <p>DLL과 ZRC 파일을 사용자 디렉토리 또는 설치 디렉토리의 <strong>"apilibs"</strong> 폴더에 배치하세요. 이 폴더가 없으면 직접 생성하세요.</p>
+                    
+                    <div class="code-block">
+                        <strong>사용자 디렉토리:</strong><br>
+                        %appdata%\ZWSOFT\ZW3D\ZW3D2025\custom\apilibs<br><br>
+                        <strong>설치 디렉토리:</strong><br>
+                        C:\Program Files\ZWSOFT\ZW3D 2025\apilibs
+                    </div>
+
+                    <div class="note">
+                        <p><strong>💡 권장사항:</strong> 사용자 디렉토리 정리 시 불필요한 리소스 손실을 방지하기 위해 설치 디렉토리의 "apilibs" 폴더에 파일을 배치하는 것을 권장합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q3. ZW3D에서 명령 실행 시 "Warning: Search for XXX: None failed for this type" 또는 기타 정보가 보고되는 이유는?</div>
+                <div class="answer">
+                    <p>다음과 같은 원인들로 인해 발생할 수 있습니다:</p>
+                    
+                    <h4>a) 초기화 함수 이름 불일치</h4>
+                    <p>초기화 함수의 이름은 DLL 파일과 일치해야 합니다. 즉, DLL 파일 이름에 "Init"을 추가한 형태여야 합니다.</p>
+                    <div class="code-block">
+                        <strong>예시:</strong><br>
+                        DLL 이름이 "DrawBox"인 경우<br>
+                        초기화 함수 이름: "DrawBoxInit"
+                    </div>
+
+                    <h4>b) DLL 함수 내보내기 부족</h4>
+                    <p>모듈 정의 파일(.def 파일)에서 DLL 내보내기 함수를 선언해야 합니다.</p>
+
+                    <h4>c) 명령 등록 누락</h4>
+                    <p><code>cvxCmdFunc()</code>를 사용하여 명령을 등록해야 합니다.</p>
+
+                    <h4>d) 템플릿 명령 호출 방식 오류</h4>
+                    <p>명령에 일치하는 Tcmd 파일이 있는 경우, 해당 명령은 템플릿 명령 유형이므로 <strong>느낌표(!)</strong>를 사용하여 호출해야 하며 <strong>물결표(~)</strong>를 사용하면 안 됩니다.</p>
+
+                    <h4>e) ZRC 파일 문제</h4>
+                    <p>느낌표(!) 접두사로 명령을 호출할 수 없는 경우:</p>
+                    <ul>
+                        <li>ZRC 파일이 DLL과 같은 디렉토리에 있지 않을 수 있습니다</li>
+                        <li>ZRC 파일이 "apilibs" 폴더에 추가되지 않았을 수 있습니다</li>
+                        <li>리소스 파일 재컴파일을 잊었을 수 있습니다</li>
+                    </ul>
+                    
+                    <div class="warning">
+                        <p><strong>⚠️ 중요:</strong> ZRC 파일을 다시 로드해야 하는 경우, ZW3D를 다시 시작하여 리소스의 무결성을 보장하세요.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q4. 명령의 등록 이름이란 무엇인가요?</div>
+                <div class="answer">
+                    <p>명령을 등록할 때 함수를 등록하는 데 사용되는 키워드입니다.</p>
+                    
+                    <div class="code-block">
+                        <strong>예시:</strong><br>
+                        ZwCommandFunctionLoad("CreateHole", (void*)ModelAddHole, ZW_LICENSE_CODE_GENERAL);<br><br>
+                        • "CreateHole": 명령의 등록 이름<br>
+                        • "ModelAddHole": 명령의 구현 함수에 대한 포인터<br>
+                        • "ZW_LICENSE_CODE_GENERAL": 명령을 나타내는 권한 부여
+                    </div>
+
+                    <p><strong>"~" + 명령의 등록 이름</strong> (예: ~CreateHole)을 사용하여 정의한 함수를 호출할 수 있습니다.</p>
+                    
+                    <p>템플릿 명령을 사용할 때는 명령의 등록 이름을 Tcmd 파일의 템플릿 이름 및 UI 파일 이름과 일치시켜야 합니다.</p>
+                    
+                    <div class="note">
+                        <p><strong>💡 권장사항:</strong> 사용의 안정성을 더 잘 보장하기 위해 명령의 등록 이름을 Tcmd 파일 이름(및 템플릿 이름) 및 UI 파일 이름과 동일하게 사용하는 것을 권장합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q5. 명령 등록 이름의 길이 제한은?</div>
+                <div class="answer">
+                    <p>길이는 <strong>128개 ASCII 문자</strong>를 초과할 수 없습니다. 초과하면 텍스트가 잘리므로 등록 이름의 길이에 주의하세요.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q6. Custom 피처란 무엇이며, 일반 피처와 어떤 차이가 있나요?</div>
+                <div class="answer">
+                    <p>ZW3D에서 두 개 이상의 기능을 단일 피처로 결합하려는 경우, Custom 피처 방식으로 객체를 생성할 수 있습니다.</p>
+                    
+                    <h4>설정 방법:</h4>
+                    <ol>
+                        <li>Tcmd 파일에서 실행 함수를 <strong>CustomOp</strong>로 설정</li>
+                        <li>해당 사용자 정의 함수에 custom 속성 추가</li>
+                    </ol>
+
+                    <div class="code-block">
+                        <strong>예시: "FilletBox" 함수의 경우</strong><br>
+                        &lt;property name="function"&gt;CustomOp&lt;/property&gt;<br>
+                        &lt;property name="custom"&gt;FilletBox.c&lt;/property&gt;<br><br>
+                        • FilletBox.c: 폭발하지 않음, 하위 피처 제거<br>
+                        • FilletBox.cc: 폭발하지 않음, 하위 피처 제거하지 않음
+                    </div>
+
+                    <p>"FilletBox"는 명령의 등록 이름입니다.</p>
+
+                    <h4>op_type 매개변수:</h4>
+                    <p>Custom 피처의 경우 <strong>"op_type=X"</strong> 매개변수를 포함해야 하며, 여기서 "X"는 다음 값 중 하나입니다. 지정하지 않으면 기본값은 <strong>"op_type=0"</strong>입니다.</p>
+
+                    <ul>
+                        <li><strong>-1:</strong> 함수를 히스토리에서 보이지 않게 설정</li>
+                        <li><strong>0:</strong> 이 피처의 유형이 분류되지 않음 (옵션 1, 2, 11이 적용되지 않음)</li>
+                        <li><strong>1:</strong> 이 피처는 기존 엔티티의 가시성 또는 표시 속성을 수정하며, 피처 입력 데이터에 명시적으로 참조되지 않은 엔티티 포함</li>
+                        <li><strong>2:</strong> 이 피처는 입력 데이터에 명시적으로 나열된 엔티티에 기하학적 수정을 가할 수 있음 (엔티티를 완전히 이동하지 않고 수정할 수 있는 경우를 제외하고 엔티티 삭제는 포함하지 않음)</li>
+                        <li><strong>-2:</strong> 옵션 2와 동일하지만, 옵션 11과 같이 표시 엔티티 선택이 함수의 입력 데이터에서 지워지는 것을 방지</li>
+                        <li><strong>3:</strong> 지우기 및 삭제 작업. 이는 요소 네트워크를 추적하는 코드에서 특별한 경우로 간주됨</li>
+                        <li><strong>11:</strong> 이 피처는 입력 데이터에 명시적으로 참조된 엔티티를 수정하지 않지만, 새 엔티티를 생성하거나 입력 데이터에 명시적으로 기록되지 않은 엔티티를 수정할 수 있음</li>
+                        <li><strong>12:</strong> 이 피처는 피처가 재생성될 때마다 복구되는 정적 기하학을 포함. 이 피처는 재정의할 수 없으며, 부모 종속성이 없음</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Q7. 일부 API 함수는 히스토리를 생성하는데 다른 함수는 그렇지 않은 이유는?</div>
+                <div class="answer">
+                    <p>API 함수가 어떤 엔티티도 수정하지 않고 쿼리나 파일 생성 작업만 수행하는 경우에는 히스토리를 생성하지 않습니다.</p>
+                    
+                    <div class="info">
+                        <p><strong>📋 원칙:</strong> ZW3D와의 상호작용을 통해 작업이 히스토리를 생성할 수 있다면, 동일한 API 함수를 실행해도 동일한 히스토리가 생성됩니다.</p>
+                    </div>
+
+                    <h4>히스토리를 생성하는 경우:</h4>
+                    <ul>
+                        <li>엔티티 생성 또는 수정</li>
+                        <li>형상 변경</li>
+                        <li>속성 변경</li>
+                        <li>모델링 작업</li>
+                    </ul>
+
+                    <h4>히스토리를 생성하지 않는 경우:</h4>
+                    <ul>
+                        <li>정보 쿼리</li>
+                        <li>파일 읽기/쓰기</li>
+                        <li>계산 작업</li>
+                        <li>표시 설정 변경</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

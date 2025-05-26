@@ -1,0 +1,6 @@
+LIBRARY EntityName.dll
+
+EXPORTS
+    ; Explicit exports can go here
+    EntityNameInit
+    EntityNameExit

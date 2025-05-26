@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>optionForm</class>
+ <widget class="ZsCc::Form" name="optionForm">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>303</width>
+    <height>239</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="functionName">
+   <string notr="true">Command dome</string>
+  </property>
+  <property name="mode">
+   <enum>ZsCc::Form::Dockable</enum>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="ZsCc::DrawbackBoxGroup" name="DrawbackBoxGroup">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="page_0">
+      <property name="windowTitle">
+       <string>Required</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_0">
+       <item row="3" column="1">
+        <widget class="ZsCc::Distance" name="id3">
+         <property name="id" stdset="0">
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="id1label">
+         <property name="text">
+          <string>Curve</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="id2label">
+         <property name="text">
+          <string>Start Distance     </string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="id3label">
+         <property name="text">
+          <string>End Distance</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="ZsCc::Distance" name="id2">
+         <property name="id" stdset="0">
+          <number>2</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="id4label">
+         <property name="text">
+          <string>Direction</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="ZsCc::Point" name="id4">
+         <property name="id" stdset="0">
+          <number>4</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="ZsCc::EntityList" name="id1">
+         <property name="id" stdset="0">
+          <number>1</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_1">
+      <property name="windowTitle">
+       <string>Optional</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_1"/>
+     </widget>
+     <widget class="QWidget" name="page_2">
+      <property name="windowTitle">
+       <string>Advanced</string>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ZsCc::Distance</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/Template/CcDistance.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::EntityList</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/Template/CcEntityList.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::Point</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/Template/CcPoint.hpp</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::DrawbackBoxGroup</class>
+   <extends>QWidget</extends>
+   <header>nui/CommonControls/CcDrawbackBoxGroup.hpp</header>
+   <addpagemethod>addPage</addpagemethod>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ZsCc::Form</class>
+   <extends>QDialog</extends>
+   <header>nui/CommonControls/CcForm.hpp</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

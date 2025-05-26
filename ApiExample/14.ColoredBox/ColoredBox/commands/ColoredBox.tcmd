@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/Template.xsd">
+    <template name="ColoredBox">
+        <property name="function">ColoredBox</property>
+        <property name="echo_obj">ColoredBoxEcho</property>
+        <parameters>
+            <parameter luid="1" description ="length" type="distance">
+                <property name="options">@sym_dbl=0.0,min=0.01,inc = 1</property>
+            </parameter>
+
+            <parameter luid="2" description ="width" type="distance">
+                <property name="options">@sym_dbl=0.0,min=0.01,inc = 1</property>
+            </parameter>
+
+            <parameter luid="3" description ="height" type="distance">
+                <property name="options">@sym_dbl=0.0,min=0.01,inc = 1</property>
+            </parameter>
+          
+            <parameter luid="4" description="Origin" type="point">
+              <property name="options">/Eface/Ecurve/Eedge/Epoint/,proj_off,empty_ok,</property>
+            </parameter>
+          
+            <parameter luid="5" description="Color" type="number">
+              <property name="options">@sym_int=7929856,</property>
+              <property name="callback">ColoredBoxCb</property>
+              <property name="prompt">Select the color of the box.</property>
+            </parameter>
+      </parameters>
+    </template>
+</templates>

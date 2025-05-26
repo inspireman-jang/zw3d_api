@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5장: ZW3D Tcmd 개발</title>
+    <style>
+        body { 
+            font-family: 'Malgun Gothic', Arial, sans-serif; 
+            margin: 20px; 
+            line-height: 1.8; 
+            background-color: #fafafa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #2c5aa0; 
+            border-bottom: 3px solid #2c5aa0; 
+            padding-bottom: 10px;
+            font-size: 2.2em;
+        }
+        h2 { 
+            color: #4a7c59; 
+            margin-top: 30px;
+            font-size: 1.5em;
+            border-left: 4px solid #4a7c59;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #666;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .code-block { 
+            background-color: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 6px; 
+            font-family: 'Consolas', 'Monaco', monospace;
+            border-left: 4px solid #007acc;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .note { 
+            background-color: #fff3cd; 
+            padding: 20px; 
+            border-left: 5px solid #ffc107; 
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background-color: #f8d7da;
+            padding: 20px;
+            border-left: 5px solid #dc3545;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #d1ecf1;
+            padding: 20px;
+            border-left: 5px solid #17a2b8;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .section { 
+            margin-bottom: 35px; 
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        .step-card {
+            background-color: #fff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .method-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #6c757d;
+        }
+        .file-structure {
+            background-color: #f1f3f4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .control-list {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border: 2px solid #28a745;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>5장: ZW3D Tcmd 개발</h1>
+
+        <div class="section">
+            <h2>1. Tcmd 파일과 편집기</h2>
+            <p>Tcmd는 UI 파일과 함께 사용되는 <strong>컨트롤 구성 파일</strong>입니다. UI에서 지정된 컨트롤의 콜백 함수와 필터를 설정하는 역할을 담당합니다. Tcmd 파일을 생성하고 편집하기 위해 Tcmd 편집기 프로그램을 제공합니다.</p>
+
+            <div class="info">
+                <p><strong>📍 Tcmd 편집기 위치:</strong></p>
+                <p>프로그램은 ZW3D 설치 경로의 <strong>"api\TcmdEditor"</strong> 폴더에 있습니다. 폴더에서 직접 <strong>"TcmdEditor.exe"</strong>를 열거나 ZW3D 플랫폼 메뉴 바 애플리케이션의 링크를 통해 Tcmd 편집기를 열 수 있습니다.</p>
+            </div>
+
+            <p>Tcmd 편집기 대화형 패널을 열면 Tcmd 파일을 더 빠르게 생성하거나 편집할 수 있습니다. 이 장에서는 Tcmd 편집기를 사용하여 Tcmd 파일을 추가로 구성하는 방법을 배우게 됩니다.</p>
+        </div>
+
+        <div class="section">
+            <h2>2. Tcmd 파일의 구성</h2>
+            <p>기본 Tcmd 파일은 <strong>템플릿</strong>과 <strong>매개변수</strong>로 구성되며, 전체 Tcmd 파일의 유형과 각 매개변수 컨트롤의 속성에 해당합니다.</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>템플릿 객체 생성</h3>
+                <p>Tcmd 편집기로 가장 먼저 생성하는 것은 템플릿 객체입니다. 마우스 오른쪽 버튼을 클릭하여 빈 템플릿 객체를 추가할 수 있습니다. 필요에 따라 오른쪽 편집 영역에서 템플릿의 속성을 편집할 수 있습니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>기본 템플릿 구성</h3>
+                <p>가장 기본적인 템플릿은 <strong>템플릿 이름(Template name)</strong>과 <strong>실행 함수(Function)</strong>로 구성되며, 일반적으로 명령과 동일한 이름을 가집니다. <strong>"!" + 명령</strong> 방식으로 템플릿 설정을 호출합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>콜백 함수 추가</h3>
+                <p>일부 콜백 함수를 추가하면 템플릿의 개발과 사용을 크게 풍부하게 할 수 있습니다:</p>
+                <ul>
+                    <li><strong>미리보기 함수(Preview function):</strong> 객체의 작업을 미리 볼 수 있도록 도움</li>
+                    <li><strong>데이터 초기화 함수(Data initialization function):</strong> 폼이 구축되기 전에 초기화</li>
+                    <li><strong>인터페이스 초기화 함수:</strong> 폼이 구축된 후에 초기화</li>
+                    <li><strong>명령 종료 함수(Command exit function):</strong> 명령이 종료될 때 실행</li>
+                </ul>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>사용자 정의 기능</h3>
+                <p><strong>"Custom"</strong>은 사용자 정의 기능 명령으로, 사용자 정의 기능을 지원하며 실제 실행 함수는 <strong>.c</strong>로 끝나야 하고, 실행 함수 <strong>"Function"</strong> 속성은 <strong>"CustomOp"</strong>로 설정해야 합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">e</span>매개변수 컨트롤 추가</h3>
+                <p>템플릿 아래의 컨텍스트 메뉴에서 다음과 같은 매개변수 컨트롤을 추가할 수 있습니다:</p>
+                <div class="control-list">
+                    <ul>
+                        <li><strong>Entity</strong> - 엔티티 선택</li>
+                        <li><strong>Form</strong> - 폼 컨트롤</li>
+                        <li><strong>Continue</strong> - 계속 진행</li>
+                        <li><strong>String</strong> - 문자열 입력</li>
+                        <li><strong>Point</strong> - 점 선택</li>
+                        <li><strong>Pin</strong> - 핀 설정</li>
+                        <li><strong>Number</strong> - 숫자 입력</li>
+                        <li><strong>Option</strong> - 옵션 선택</li>
+                        <li><strong>Command</strong> - 명령 실행</li>
+                        <li><strong>Optgroup</strong> - 옵션 그룹</li>
+                        <li><strong>Window</strong> - 창 컨트롤</li>
+                        <li><strong>Distance</strong> - 거리 측정</li>
+                        <li><strong>Angle</strong> - 각도 설정</li>
+                    </ul>
+                </div>
+                <p>각 매개변수 컨트롤에는 해당 속성이 있으며, 가장 기본적인 것은 기본적으로 설정되고 변경할 수 없는 <strong>Type</strong>과 <strong>Id</strong>입니다.</p>
+            </div>
+
+            <div class="note">
+                <p><strong>📚 자세한 정보:</strong> 더 자세한 정보는 <strong>Tcmd Editor 도움말 문서</strong>를 참조하세요.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. Tcmd 파일 편집 사례</h2>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>UI 파일 위치 찾기</h3>
+                <p>Tcmd 파일은 일반적으로 UI 파일을 기반으로 개발하고 편집합니다. 예를 들어, 앞서 언급한 <strong>"TemplateCmd.ui"</strong>는 생성될 때 해당 Tcmd 파일 템플릿을 생성합니다.</p>
+                
+                <p>Tcmd 편집기를 사용하여 UI 파일을 로드할 때, 동일한 디렉토리나 상위 디렉토리의 commands 폴더에 해당 Tcmd 파일이 있으면 해당 Tcmd 파일을 열 것인지 묻는 메시지가 표시됩니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>UI 파일 기반으로 해당 Tcmd 파일 로드 또는 생성</h3>
+                <p>이전 섹션에서 생성한 <strong>TemplateCmd.ui</strong> 파일을 로드하고, 해당 Tcmd 파일을 추가하거나 생성한 후 확인하면 Tcmd 편집 페이지가 열립니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>템플릿 속성 편집</h3>
+                <p>마법사 템플릿의 <strong>TemplateCmd.tcmd</strong> 파일을 참조하여 폼에 관련 함수를 추가합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>매개변수 속성 편집</h3>
+                <p>Tcmd 도움말 문서를 사용하여 엔티티 컨트롤에 대한 관련 설정을 추가합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">e</span>Tcmd 파일에 변경 사항 저장</h3>
+                <p><strong>"예"</strong>를 클릭하여 Tcmd 파일에 변경 사항을 저장합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">f</span>구현 함수 보완</h3>
+                <p><strong>"TemplateCommand.cpp"</strong>를 참조하여 템플릿 명령에 기능을 추가합니다.</p>
+                
+                <div class="code-block">
+                    <code>
+int TemplateCmd(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int idData /* I: index of data container */<br>
+)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;/*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;DESCRIPTION:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;명령의 실행 함수. 명령에서 OK 또는 APPLY 버튼을 클릭할 때 함수가 호출됩니다.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// TODO: 작업 수행<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxMsgDisp("TemplateCmd");<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;/* 데이터 컨테이너의 데이터 조회 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int idField = 1, nEnts = 0, *idEnts = 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxDataGetEnts(idData, idField, &nEnts, &idEnts);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;/* 면 색상 변경 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;evxEntType type;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for (int i = 0; i < nEnts; i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (cvxEntClassNum(idEnts[i]) == VX_ENT_FACE)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;svxFaceAt att;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cvxMemZero(&att, sizeof(att));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cvxPartInqFaceAt(idEnts[i], &att);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;att.front_color.r = 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;att.front_color.g = 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;att.front_color.b = 255;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cvxPartSetFaceAt(1, &idEnts[i], &att);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxMemFree((void**)&idEnts);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">g</span>프로젝트 컴파일</h3>
+                <p>2장을 참조하여 지정된 경로에서 컴파일한 후 DLL과 ZRC 등의 파일이 생성됩니다. DLL과 ZRC가 동일한 디렉토리에 있어야 ZW3D에 올바르게 로드될 수 있습니다.</p>
+                
+                <div class="file-structure">
+                    CommandTest > x64 > Debug<br>
+                    ├── CommandTest.dll (67 KB)<br>
+                    ├── CommandTest.exp (2 KB)<br>
+                    ├── CommandTest.lib (3 KB)<br>
+                    ├── CommandTest.pdb (764 KB)<br>
+                    └── CommandTest.zrc (6 KB)
+                </div>
+
+                <div class="note">
+                    <p><strong>📝 참고:</strong> DLL 파일과 달리, ZW3D가 활성화된 상태에서 로드된 ZRC 파일을 변경하려면 폼의 지속 속성을 <strong>Temporary</strong>로 설정해야 합니다.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">h</span>효과 검증</h3>
+                <p><strong>CommandTest.zrc</strong>와 <strong>CommandTest.dll</strong>을 ZW3D 설치 디렉토리나 사용자 디렉토리에 배치한 후 ZW3D를 시작합니다(또는 시작 후 DLL을 로드). 부품 환경을 생성하고 육면체를 그립니다.</p>
+                
+                <p><strong>"!TemplateCmd"</strong> 명령을 입력하면 그림의 명령 대화상자가 표시됩니다. 특정 면 객체를 선택할 수 있습니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">i</span>결과 확인</h3>
+                <p><strong>"✓"</strong>를 클릭하면 선택한 면 색상이 파란색으로 변하는 것을 볼 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. ZW3D 명령 대화상자</h2>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>Report 명령 실행</h3>
+                <p>ZW3D 명령줄에서 <strong>"$Report"</strong>를 실행합니다. 명령이 성공적으로 실행되면 다음 정보를 받게 됩니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>ZW3D 네이티브 함수 실행</h3>
+                <p>알고 싶은 명령을 실행합니다. 예를 들어 육면체 생성에 해당하는 함수를 실행하면, 정보 출력 상자에서 다음 정보를 얻을 수 있습니다: <strong>[vxSend, "!FtAllBox"]</strong>. 이는 ZW3D 명령 <strong>!FtAllBox</strong>가 실행되어 육면체를 생성한다는 것을 나타냅니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>학습 사례</h3>
+                <p>명령 이름을 통해 제공된 <strong>"FtAllBox.ui"</strong> 파일을 찾아 사용자 정의 UI 인터페이스 디자인의 참조로 활용할 수 있습니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>UI와 명령 대화상자</h3>
+                <p>인터페이스에서 다양한 컨트롤과 관련 매개변수를 볼 수 있으며, Tcmd 키워드를 직접 학습하기는 어렵습니다. 위에서 설명한 대로 UI를 Tcmd 편집기로 가져와서 Tcmd 템플릿 파일을 자동으로 생성하고, 관련 개발 지침에 따라 해당 Tcmd 파일을 생성할 수 있습니다.</p>
+                
+                <div class="note">
+                    <p><strong>📚 자세한 내용:</strong> Tcmd 편집기 도움말 문서를 참조하세요.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">e</span>컨트롤과 명령</h3>
+                <p>UI 파일을 직접 보는 것 외에도 인터페이스에서 포커스를 설정하여 컨트롤 ID를 얻을 수 있습니다. 이 정보를 사용하여 명령에 직접 매개변수를 전달할 수도 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>5. 명령으로 육면체 생성</h2>
+            <p>함수 이름과 컨트롤 ID를 알고 있으면 <strong>cvxDataSet</strong>과 같은 명령을 통해 기능을 직접 호출하고 인터페이스 인수를 사용하여 직접 모델링할 수 있습니다.</p>
+            
+            <p>위의 육면체 생성 예제로서, 제공된 API 함수 <strong>cvxPartBox()</strong>를 사용하여 육면체를 생성할 수도 있지만, ZW3D 명령을 호출하여 엔티티를 생성해 보세요. 두 생성 방법의 유사점과 차이점을 직접 경험할 수 있습니다.</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>2차 개발 마법사 템플릿을 사용하여 새 프로젝트 생성</h3>
+                <p>2장을 참조하여 2차 개발 마법사 템플릿을 사용하여 <strong>CommandTest</strong> 프로젝트를 생성하고, 헤더 <strong>CommandTestPr.h</strong>에 <strong>RegisterMyBoxCommand</strong>와 <strong>UnloadMyBoxCommand</strong>에 대한 함수 선언을 추가합니다.</p>
+                
+                <p>명령 컨트롤이 다른 인터페이스를 사용하므로 해당 인터페이스의 헤더 파일을 추가해야 합니다.</p>
+                
+                <div class="code-block">
+                    <code>
+#pragma once<br>
+#include "VXApi.h"<br>
+#include "zwapi_cmd_paramdefine_tpl.h"<br>
+#include "zwapi_cmd.h"<br>
+#include "zwapi_memory.h"<br>
+#include "zwapi_message.h"<br>
+<br>
+/* 함수 선언 */<br>
+int RegisterCustomCommand(void);<br>
+int UnloadCustomCommand(void);<br>
+int RegisterTemplateCommand(void);<br>
+int UnloadTemplateCommand(void);<br>
+int RegisterFormCommand(void);<br>
+int UnloadFormCommand(void);<br>
+int RegisterMyBoxCommand(void);<br>
+int UnloadMyBoxCommand(void);
+                    </code>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>초기화 및 종료 함수에 추가</h3>
+                <p><strong>main.cpp</strong>의 <strong>CommandTestInit</strong>과 <strong>CommandTestExit</strong>에 각각 <strong>RegisterMyBoxCommand</strong>와 <strong>UnloadMyBoxCommand</strong>를 추가하여 ZW3D에서 함수가 올바르게 로드되고 언로드되도록 합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>소스 파일에 MyBox.cpp 생성</h3>
+                <p>소스 파일에 <strong>MyBox.cpp</strong>를 생성하고 다음 코드를 복사하여 붙여넣습니다:</p>
+                
+                <div class="code-block">
+                    <code>
+#include "../inc/CommandTestPr.h"<br>
+<br>
+int myBox();<br>
+<br>
+int RegisterMyBoxCommand()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxCmdFunc("myBox", (void*)myBox, VX_CODE_GENERAL);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+}<br>
+<br>
+int UnloadMyBoxCommand()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxCmdFuncUnload("myBox");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+}<br>
+<br>
+int myBox()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int idData = 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;svxData tempData;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxDataInit("FtAllBox", &idData);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// 유형을 선택하는 옵션 설정<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxDataZero(&tempData);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.isNumber = 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.NumType = VX_NUM;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.Num = 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxDataSet(idData, 8, &tempData);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// 첫 번째 점 설정<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxDataZero(&tempData);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.isPoint = 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.PntType = VX_PNT3_ABS;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.Pnt.x = tempData.Pnt.y = tempData.Pnt.z = 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxDataSet(idData, 1, &tempData);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// 두 번째 점 설정<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxDataZero(&tempData);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.isPoint = 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.PntType = VX_PNT3_ABS;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tempData.Pnt.x = tempData.Pnt.y = tempData.Pnt.z = 15;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxDataSet(idData, 2, &tempData);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// 이 ZW3D 명령 실행<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cvxCmdExec(idData);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 0;<br>
+}
+                    </code>
+                </div>
+
+                <div class="note">
+                    <p><strong>📝 참고:</strong> 명령을 사용하여 객체를 생성할 때는 매개변수의 원래 기본값에 주의해야 합니다. 매개변수의 원래 기본값이 0이 아닌 경우 그에 따라 설정해야 합니다. 그렇지 않으면 결과가 예상과 다를 수 있습니다.</p>
+                    
+                    <p>UI와 Tcmd 파일을 보고 명령의 매개변수와 설정 영역의 ID를 학습할 수 있습니다. 또한 기능 인터페이스와 명령의 유사점과 차이점을 비교하여 자신만의 구현을 결정할 수 있습니다.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>프로젝트 빌드 및 ZW3D에서 DLL 로드</h3>
+                <p>새 부품을 생성한 후 명령줄에서 <strong>"~myBox"</strong>를 실행합니다. 이 명령은 모델링 영역에 새 육면체를 생성합니다.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

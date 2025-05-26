@@ -1,0 +1,3 @@
+LIBRARY OptAuxframe.dll
+EXPORTS OptAuxframeInit
+		OptAuxframeExit

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/Template.xsd">
+    <template name="EditVariable">
+        <property name="function">EditVariable</property>
+        <property name="init">EditVariableInit</property>
+        <parameters>
+            <parameter luid="1" name="id1" type="entity">
+                <property name="callback">EditVariableCb</property>
+                <property name="options">/ftr/,no_qpick_echo,is_pmi=0,pick_cosmetic=1,chk_not_instpoint,</property>
+            </parameter>
+            <parameter luid="2" name="id2" type="form">
+                <property name="comp">3</property>
+                <property name="template">Variable</property>
+            </parameter>
+            <parameter description="variable  list used in feature" luid="3" name="id3" type="entity">
+                <property name="comp">2</property>
+                <property name="format">Variable</property>
+                <property name="info_id">1 2</property>
+                <property name="list">1</property>
+            </parameter>
+        </parameters>
+    </template>
+</templates>

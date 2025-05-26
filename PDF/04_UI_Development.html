@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4장: ZW3D UI 개발</title>
+    <style>
+        body { 
+            font-family: 'Malgun Gothic', Arial, sans-serif; 
+            margin: 20px; 
+            line-height: 1.8; 
+            background-color: #fafafa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #2c5aa0; 
+            border-bottom: 3px solid #2c5aa0; 
+            padding-bottom: 10px;
+            font-size: 2.2em;
+        }
+        h2 { 
+            color: #4a7c59; 
+            margin-top: 30px;
+            font-size: 1.5em;
+            border-left: 4px solid #4a7c59;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #666;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .code-block { 
+            background-color: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 6px; 
+            font-family: 'Consolas', 'Monaco', monospace;
+            border-left: 4px solid #007acc;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        .note { 
+            background-color: #fff3cd; 
+            padding: 20px; 
+            border-left: 5px solid #ffc107; 
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background-color: #f8d7da;
+            padding: 20px;
+            border-left: 5px solid #dc3545;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background-color: #d1ecf1;
+            padding: 20px;
+            border-left: 5px solid #17a2b8;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .section { 
+            margin-bottom: 35px; 
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        .step-card {
+            background-color: #fff;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .method-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #6c757d;
+        }
+        .file-structure {
+            background-color: #f1f3f4;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        .control-box {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border: 2px solid #28a745;
+        }
+        .purple-box {
+            background-color: #f3e5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border: 2px solid #6f42c1;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>4장: ZW3D UI 개발</h1>
+
+        <div class="section">
+            <h2>1. ZW3D UI Designer 개념</h2>
+            <p>ZW3D UI Designer는 <strong>QT Designer를 기반으로 한 플러그인</strong>입니다. QT5.9.7을 기반으로 자체 UI 컨트롤을 개발했습니다. 사용자는 QT를 다운로드하여 설치하고, ZW3D에서 제공하는 플러그인을 QT Designer 디렉토리에 복사한 후 QT Designer를 시작하면 ZW3D에서 정의한 UI 컨트롤을 볼 수 있습니다.</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>QT 5.9.7 설치</h3>
+                <p>QT 5.9.7을 설치하고, 설치 중에 Qt 관련 구성 요소를 체크합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>ZW3D 루트 디렉토리에서 DLL 파일 찾기</h3>
+                <p>ZW3D 루트 디렉토리에서 다음 DLL을 찾습니다:</p>
+                <ul>
+                    <li><strong>CommonControls.dll</strong></li>
+                    <li><strong>QtnRibbon.dll</strong></li>
+                </ul>
+                <p>이 파일들을 QT의 designer.exe 형제 디렉토리에 복사합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>plugins/designer 폴더에서 DLL 파일 찾기</h3>
+                <p>ZW3D 루트 디렉토리의 <strong>"plugins/designer"</strong> 폴더에서 다음 DLL을 찾습니다:</p>
+                <ul>
+                    <li><strong>CommonControlsPlugin.dll</strong></li>
+                    <li><strong>QtnRibbonDsgn.dll</strong></li>
+                </ul>
+                <p>이 파일들을 QT의 <strong>"plugins/designer"</strong> 폴더에 복사합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>plugins/styles 폴더에서 DLL 파일 찾기</h3>
+                <p>ZW3D 루트 디렉토리의 <strong>"plugins/styles"</strong> 폴더에서 다음 DLL을 찾습니다:</p>
+                <ul>
+                    <li><strong>QtnStylePlugin.dll</strong></li>
+                </ul>
+                <p>이 파일을 QT의 <strong>"plugins/styles"</strong> 폴더에 복사합니다.</p>
+            </div>
+
+            <div class="warning">
+                <p><strong>⚠️ 중요 주의사항:</strong></p>
+                <p>ZW3D UI Designer는 UI 디자인에만 사용할 수 있습니다. 모든 코딩 로직에서는 QT 기술을 사용할 수 없습니다. ZW3D UI Designer에는 QT 라이브러리가 포함되어 있지 않습니다. 따라서 QT 기능을 사용해야 하는 경우 상용 버전을 구매해야 합니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. 스크립트 추가를 통한 자동화</h2>
+            <p>ZW3D2025 설치 경로의 api 폴더에 <strong>"CopyQTDLL.bat"</strong> 파일을 생성하고, 텍스트를 편집하여 다음 내용을 복사하여 붙여넣고, QTPath를 로컬 Qt 경로로 수정합니다.</p>
+
+            <div class="note">
+                <p><strong>📝 참고:</strong> 이 스크립트는 ZW3D2025에만 적용됩니다. 이전 버전의 구성 파일은 다릅니다. 설정에 대해서는 해당 버전의 도움말 문서를 참조하세요.</p>
+            </div>
+
+            <div class="code-block">
+                <code>
+%@echo off%<br>
+set CurrentPath=%~dp0<br>
+cd /d %CurrentPath%<br>
+cd ..<br>
+set ZW3DPath=%cd%<br>
+if "%QTDIR%"=="" (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set QTPath=D:\Qt\Qt5.9.7\5.9.7\msvc2017_64<br>
+) else (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;set QTPath=%QTDIR%<br>
+)<br>
+md "%QTPath%\plugins\styles"<br>
+COPY "%ZW3DPath%\CommonControls.dll" "%QTPath%\bin"<br>
+COPY "%ZW3DPath%\QtnRibbon.dll" "%QTPath%\bin"<br>
+COPY "%ZW3DPath%\plugins\designer\CommonControlsPlugin.dll" "%QTPath%\plugins\designer"<br>
+COPY "%ZW3DPath%\plugins\designer\QtnRibbonDsgn.dll" "%QTPath%\plugins\designer"<br>
+COPY "%ZW3DPath%\plugins\styles\QtnStylePlugin.dll" "%QTPath%\plugins\styles"<br>
+Pause
+                </code>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. ZW3D 명령 대화상자</h2>
+            <p>ZW3D 명령 대화상자는 사용자가 ZW3D 명령을 실행할 때 상호작용하는 특별한 대화상자입니다. ZW3D UI Designer는 ZW3D 모델링 영역에서 필요한 값을 가져오거나 ZW3D에서만 사용할 수 있는 특정 특수 값을 가져오고 설정하는 특수 컨트롤을 지원합니다.</p>
+
+            <div class="note">
+                <p><strong>📝 참고:</strong> 모든 ZW3D 명령 대화상자를 다운로드하려면 ZWSOFT 지원팀에 문의하세요.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>4. ZW3D UI Designer 소개</h2>
+            <p>아래 이미지에서 볼 수 있듯이, 왼쪽에 두 개의 확장 컨트롤 영역이 있습니다.</p>
+
+            <div class="control-box">
+                <h3>🔴 빨간색 박스의 컨트롤</h3>
+                <p><strong>ZW3D 명령 컨트롤</strong>로, ZW3D 명령 대화상자(주로 템플릿 명령) 디자인에 사용됩니다.</p>
+            </div>
+
+            <div class="purple-box">
+                <h3>🟣 보라색 박스의 컨트롤</h3>
+                <p><strong>QT 캡슐화 기반 확장 컨트롤</strong>로, 비템플릿 명령 대화상자 디자인에 사용됩니다.</p>
+            </div>
+
+            <div class="warning">
+                <p><strong>⚠️ 중요:</strong> 명령 대화상자(템플릿 명령)를 생성할 때는 별도로 지정되지 않는 한 적응 문제를 방지하기 위해 QT 컨트롤을 사용하지 않는 것을 권장합니다. 개별 폼을 생성할 때는 이러한 확장을 사용할 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>5. ZW3D 템플릿 명령 대화상자 생성</h2>
+            <p>템플릿 명령과 비템플릿 명령의 처리 메커니즘은 다릅니다. 템플릿 명령에는 컨트롤 메커니즘과 기능 호출을 설정하는 해당 Tcmd 컨트롤 파일이 있으며, 호출 형식은 <strong>"!" + 명령 이름</strong>입니다.</p>
+
+            <p>템플릿 명령으로 처리되지 않은 Tcmd 파일의 경우, UI에 콜백 함수를 직접 추가하고 <strong>"~" + 명령 이름</strong> 형식으로 호출해야 합니다. 매개변수를 잘못 설정하면 해당 명령 창이 제대로 표시되지 않습니다.</p>
+
+            <p>템플릿 명령은 비템플릿 명령보다 더 복잡하고 설계하기 어려우므로, 템플릿 명령을 생성하는 방법을 이해하는 데 도움이 되는 몇 가지 예제와 지침을 제공합니다.</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>마법사 템플릿에서 "TemplateCmd.ui" 케이스 열기</h3>
+                <p>ZW3D UI Designer를 통해 케이스 파일을 열 수 있으며, 드래그 앤 드롭으로 UI 인터페이스를 편집할 수 있습니다. 다음 과정을 참조하여 동일한 템플릿 파일을 수동으로 생성할 수도 있습니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>아래와 같이 UI 생성</h3>
+                <p><strong>"ZsCc::Form"</strong>을 기반으로 새 창을 생성하고 <strong>"objectName"</strong>을 <strong>"TemplateCmd"</strong>로 설정합니다. UI 파일은 페이지의 디자인과 레이아웃만 수행하며, 구체적인 기능 디자인은 다음 Tcmd 파일 편집에서 구현해야 합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>Label 컨트롤 추가</h3>
+                <p><strong>"Display Widgets"</strong> 영역에서 <strong>"Label"</strong>을 템플릿의 <strong>"Required"</strong> 영역으로 드래그하여 Label 배치를 완료합니다. Label의 텍스트를 <strong>"Select an Entity:"</strong>로 변경하고 <strong>"Object Name"</strong>을 <strong>"Id1label"</strong>로 설정합니다.</p>
+                
+                <p><strong>"Label"</strong>은 일반적으로 텍스트 안내 및 컨트롤 태그에 사용되므로, 해당 텍스트가 있는 경우 <strong>"ID" + "Label"</strong> 형식을 따릅니다. 컨트롤을 조작하는 다른 UI 인터페이스도 태그에 의존하므로 태그 이름을 정식으로 지정하세요.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>Entity 컨트롤 추가</h3>
+                <p>Entity 컨트롤을 <strong>"Required"</strong> 필드로 드래그하고 <strong>"id"</strong>를 1로 설정합니다. 이는 컨트롤의 식별자이며 각 컨트롤에 대해 고유합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">e</span>컨트롤을 수평으로 배치</h3>
+                <p><strong>"Ctrl"</strong> 키를 누른 상태에서 <strong>"Label"</strong>과 <strong>"ZsCc::Entity"</strong> 컨트롤을 클릭하고, 컨텍스트 메뉴를 열어 레이아웃 옵션에 들어가서 <strong>"Lay Out Horizontally"</strong>를 선택하여 수평 레이아웃을 완료합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">f</span>컨트롤을 수직으로 배치</h3>
+                <p>오른쪽 객체 관리자 또는 왼쪽 패널에서 그룹 <strong>"drawbackBoxGroup"</strong>을 선택하고, 컨트롤의 포커스 범위 또는 패널 범위에서 마우스 오른쪽 버튼 메뉴를 통해 레이아웃 옵션에 들어가서 <strong>"Lay Out Vertically"</strong>를 선택하여 수직 레이아웃을 완료합니다.</p>
+                
+                <div class="note">
+                    <p><strong>📝 참고:</strong> 마우스 포커스가 객체 범위 내에 있지 않거나 잘못된 객체를 선택했을 때는 마우스 오른쪽 버튼 메뉴가 호출되지 않을 수 있습니다. 다른 객체나 레이아웃을 클릭하여 원하는 레이아웃 효과를 달성해 보세요.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">g</span>UI 패널 디자인 완료</h3>
+                <p>이때 명령 대화상자는 2차 개발 마법사의 <strong>"TemplateCmd.ui"</strong> 템플릿과 동일한 레이아웃입니다. 대화상자를 <strong>"TemplateCmd"</strong> 폴더에 저장하고 <strong>"TemplateCmd.ui"</strong>로 이름을 지정할 수 있습니다.</p>
+                
+                <p>템플릿 컨트롤을 사용하면 UI 파일을 생성할 때 동시에 해당 Tcmd 파일 템플릿이 생성되며, 콜백 함수, 컨트롤 속성 등의 설정을 완료하기 위해 Tcmd 파일을 추가로 편집해야 합니다. 다음 섹션에서는 Tcmd 파일을 편집하고 완전한 템플릿 이름을 완료하는 방법을 배우게 됩니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">h</span>Tcmd 파일 구성</h3>
+                <p>해당 <strong>"TemplateCmd.tcmd"</strong>는 추가 편집이 필요하므로, 마법사 템플릿에서 제공하는 구성된 속성이 있는 <strong>"TemplateCmd.tcmd"</strong> 파일을 직접 사용하거나 5장의 내용에 따라 Tcmd 파일의 내용을 편집할 수 있습니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">i</span>Ui 및 Tcmd 파일 별도 배치</h3>
+                <p><strong>"TemplateCmd.ui"</strong>를 <strong>"forms"</strong> 폴더에 추가하고 <strong>"TemplateCmd.tcmd"</strong>를 <strong>"commands"</strong> 폴더에 추가하여 프로젝트에 추가할 수 있습니다(템플릿 사용 시 두 폴더 모두 이미 생성됨).</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">j</span>리소스 컴파일</h3>
+                <p>2차 개발 마법사 템플릿의 <strong>"TemplateCommand.cpp"</strong> 예제를 참조하여 해당 <strong>"!TemplateCmd"</strong> 명령을 생성할 수 있습니다.</p>
+                
+                <div class="note">
+                    <p><strong>📝 참고:</strong> 템플릿 명령은 비템플릿 명령과 호출 방식이 약간 다르며, 명령 앞에 <strong>"!"</strong> 기호를 붙여야 하고 <strong>"~"</strong>가 아닙니다. 로딩 및 디버깅에 대한 자세한 내용은 2장을 참조하세요. 프로젝트에서 생성된 DLL 파일이 ZRC 파일과 동일한 폴더에 있는지 확인하여 ZW3D에 로드될 수 있도록 하세요.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">k</span>ZW3D 비템플릿 페이지 생성</h3>
+                <p>DLL을 로드한 후 <strong>"!TemplateCmd"</strong> 명령을 입력하면 Tcmd 파일의 구성에 따라 해당 UI 인터페이스가 호출됩니다. 템플릿 명령의 경우 UI와 Tcmd 파일이 상호 관련되어 있으며 필수입니다.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>6. ZW3D 비템플릿 페이지 생성</h2>
+            <p>ZW3D 명령 컨트롤을 사용하지 않는 비템플릿 명령을 생성할 때는 Tcmd 파일이 생성되지 않습니다. 마법사 템플릿에서 <strong>"FormCmd.ui"</strong>라는 케이스와 해당 코드 파일 <strong>"FormCommand.cpp"</strong>를 제공합니다.</p>
+
+            <div class="step-card">
+                <h3><span class="step-number">a</span>빈 페이지 생성 및 Qt 확장 컨트롤 삽입</h3>
+                <p>빈 페이지를 생성하고 <strong>"objectName"</strong>과 <strong>"functionName"</strong>을 모두 <strong>"FormCmd"</strong>로 설정합니다. 이 이름은 비템플릿 명령을 식별하는 키입니다. 이름 충돌을 방지하고 고유성을 보장하세요. 그런 다음 Qt 확장 컨트롤 <strong>"ZsCc::TableWidget"</strong>과 <strong>"ZsCc::TreeView"</strong>를 패널로 드래그합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">b</span>컨트롤 콜백 함수 설정</h3>
+                <p>템플릿 명령과 달리 비템플릿 명령은 UI 컨트롤에 콜백 함수를 추가해야 하며, <strong>"ZsCc::TableWidget"</strong>과 <strong>"ZsCc::TreeView"</strong>의 <strong>"callback"</strong>을 <strong>"FormCmdCb"</strong>로 설정합니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">c</span>UI 파일 배치</h3>
+                <p>완료 후 UI 파일을 <strong>"FormCmd.ui"</strong>로 저장하고 프로젝트의 <strong>"forms"</strong> 폴더에 배치하며, 2차 개발 마법사의 <strong>"FormCommand.cpp"</strong> 템플릿 예제를 참조하여 해당 실행 함수를 생성하고 편집할 수 있습니다.</p>
+            </div>
+
+            <div class="step-card">
+                <h3><span class="step-number">d</span>비템플릿 명령 페이지 호출</h3>
+                <p>비템플릿 명령 <strong>"~ShowForm"</strong>을 실행하면 해당 UI 인터페이스가 호출되며, 값의 변경이 지속적으로 콜백 함수를 트리거합니다. 이것으로 비템플릿 페이지 생성이 완료됩니다.</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

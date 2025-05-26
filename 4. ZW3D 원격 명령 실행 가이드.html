@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 ZW3D 원격 명령 실행 가이드 (Remote Communication with ZW3D)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .intro-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        .method-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background-color: #4a5568;
+            color: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .command-box {
+            background-color: #1a202c;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .file-path {
+            background-color: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #495057;
+        }
+        .step-number {
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: 500;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+            color: #3498db;
+        }
+        .summary-table {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        .summary-table th {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .summary-table td {
+            background-color: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+        }
+        .icon-section {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 ZW3D 원격 명령 실행 가이드<br><small style="font-size: 0.6em; color: #7f8c8d;">(Remote Communication with ZW3D)</small></h1>
+        
+        <div class="toc">
+            <h3>📋 목차</h3>
+            <ul>
+                <li><a href="#intro">✅ ZW3D에 명령어 문자열 보내기</a></li>
+                <li><a href="#console">1️⃣ 콘솔에서 명령어 실행</a></li>
+                <li><a href="#cpp">2️⃣ 외부 프로그램(C/C++)에서 실행</a></li>
+                <li><a href="#remote-exe">3️⃣ zw3dremote.exe 사용</a></li>
+                <li><a href="#command-types">📌 명령어 종류 및 실행 방식</a></li>
+                <li><a href="#tracking">🖥️ 명령어 추적 및 로그 확인</a></li>
+                <li><a href="#macro">📜 매크로 명령 전달</a></li>
+                <li><a href="#quit">❌ ZW3D 종료 명령</a></li>
+                <li><a href="#window-modes">🪟 ZW3D 창 숨기기 또는 최소화 모드</a></li>
+                <li><a href="#summary">🧭 요약</a></li>
+            </ul>
+        </div>
+
+        <section id="intro" class="intro-section">
+            <h2 style="color: white; border: none; padding: 0; margin-top: 0;">✅ ZW3D에 명령어 문자열 보내기</h2>
+            <p><strong>ZW3D는 명령줄(Command Line) 또는 외부 실행 파일을 통해 원격으로 명령어 문자열을 전달받아 실행할 수 있습니다.</strong></p>
+        </section>
+
+        <section id="console" class="method-section">
+            <h2><span class="step-number">1</span>콘솔에서 명령어 실행</h2>
+            
+            <div class="command-box">
+zw3dremote -r local cmd="this is my command string"
+            </div>
+
+            <ul>
+                <li><strong>"this is my command string"</strong>에 원하는 ZW3D 명령어 입력</li>
+                <li><strong>실행 중인 ZW3D가 있으면</strong> 해당 인스턴스에 전달</li>
+                <li><strong>실행 중이 아니면</strong> 자동으로 ZW3D를 시작한 뒤 명령어를 실행</li>
+            </ul>
+        </section>
+
+        <section id="cpp" class="method-section">
+            <h2><span class="step-number">2</span>외부 프로그램(C/C++)에서 system() 함수로 실행</h2>
+            
+            <div class="code-block" data-lang="C++">
+system("zw3dremote -r local cmd=\"this is my command string\"");
+            </div>
+
+            <ul>
+                <li><strong>C 또는 C++ 프로그램</strong>에서 system() 함수로 호출 가능</li>
+                <li><strong>명령어는 이스케이프 문자(\")</strong>로 감싸야 함</li>
+            </ul>
+        </section>
+
+        <section id="remote-exe" class="method-section">
+            <h2><span class="step-number">3</span>zw3dremote.exe 사용</h2>
+            
+            <div class="note">
+                <p><strong>zw3dremote.exe</strong>는 약 <strong>400KB의 가벼운 실행 파일</strong>로 ZW3D 인스턴스에 명령어 전달 역할 수행</p>
+                <p><strong>ZW3D 설치 폴더</strong>에서 복사 가능</p>
+            </div>
+
+            <h3>zw3dremote.exe 실행 경로 탐색 순서:</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>우선순위</th>
+                        <th>동작</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1</strong></td>
+                        <td>이미 실행 중인 ZW3D 인스턴스 탐색 후 명령 전달</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2</strong></td>
+                        <td>현재 디렉토리에서 ZW3D 실행 파일 검색</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3</strong></td>
+                        <td>레지스트리에서 설치된 ZW3D 경로 검색 및 실행</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="command-types">
+            <h2>📌 명령어 종류 및 실행 방식</h2>
+
+            <div class="method-section">
+                <h3>✅ 템플릿 명령어 실행 (커맨드 파일 .tcmd 기반)</h3>
+                
+                <div class="command-box">
+zw3dremote -r local cmd="!MyTemplate"
+                </div>
+
+                <ul>
+                    <li><strong>!</strong>로 시작하면 <span class="file-path">.tcmd</span>로 등록된 명령어 실행</li>
+                    <li><strong>MyTemplate</strong>은 DLL의 Init 함수에서 등록된 템플릿 명령 이름</li>
+                </ul>
+            </div>
+
+            <div class="method-section">
+                <h3>✅ 함수 직접 실행 (void 반환 함수)</h3>
+                
+                <div class="command-box">
+zw3dremote -r local cmd="~MyFunction"
+                </div>
+
+                <ul>
+                    <li><strong>~</strong>로 시작하면 <span class="file-path">void MyFunction(void)</span> 형식의 C 함수 실행</li>
+                    <li><strong>반드시 DLL에서 cvxCmdFunc()로 등록</strong>되어 있어야 함</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="tracking">
+            <h2>🖥️ 명령어 추적 및 로그 확인</h2>
+            
+            <div class="success">
+                <p><strong>ZW3D 내부 명령어는 실제로 커맨드 문자열로 실행됩니다.</strong></p>
+                
+                <p><strong>명령어 로그를 보려면</strong> 텍스트 입력창에 다음 입력:</p>
+                
+                <div class="command-box">
+$report
+                </div>
+
+                <p><strong>이후 GUI 버튼 클릭 시,</strong> ZW3D 메시지 영역에 해당 명령어 문자열이 표시됨</p>
+            </div>
+        </section>
+
+        <section id="macro">
+            <h2>📜 매크로 명령 전달 (Design Automation Language)</h2>
+            
+            <div class="note">
+                <ul>
+                    <li><strong>외부 앱에서도 ZW3D 매크로 명령어 전송 가능</strong></li>
+                    <li>관련 내용은 <strong>ZW3D 온라인 도움말</strong>의 "Passing Macro Commands to ZW3D from Remote Applications" 섹션 참고</li>
+                    <li><strong>일부 명령어는 결과 반환도 가능</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="quit">
+            <h2>❌ ZW3D 종료 명령</h2>
+            
+            <div class="command-box">
+zw3dremote -r local cmd="CdPrjQuit4"
+            </div>
+
+            <div class="warning">
+                <p><strong>실행 중인 ZW3D를 정상 종료시킴</strong></p>
+            </div>
+        </section>
+
+        <section id="window-modes">
+            <h2>🪟 ZW3D 창 숨기기 또는 최소화 모드로 실행</h2>
+
+            <div class="method-section">
+                <h3>🔹 창 숨기기 (Hidden Mode)</h3>
+                
+                <div class="command-box">
+zw3dremote -hide
+                </div>
+
+                <p><strong>ZW3D 창을 표시하지 않고 백그라운드로 실행</strong></p>
+            </div>
+
+            <div class="method-section">
+                <h3>🔹 최소화 실행 (Minimized Mode)</h3>
+                
+                <div class="command-box">
+zw3dremote -minimized
+                </div>
+
+                <p><strong>ZW3D 창을 최소화된 상태로 실행</strong></p>
+            </div>
+        </section>
+
+        <section id="summary" class="summary-table">
+            <h2 style="color: white; text-align: center; padding: 20px; margin: 0;">🧭 요약</h2>
+            <table style="margin: 0; color: #333;">
+                <thead>
+                    <tr>
+                        <th>기능</th>
+                        <th>명령어 예시</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>명령어 실행 (실행 중 ZW3D 대상)</strong></td>
+                        <td><span class="file-path">zw3dremote -r local cmd="~MyFunction"</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>템플릿 명령 실행</strong></td>
+                        <td><span class="file-path">zw3dremote -r local cmd="!MyTemplate"</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>종료</strong></td>
+                        <td><span class="file-path">zw3dremote -r local cmd="CdPrjQuit4"</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>매크로 실행</strong></td>
+                        <td>온라인 도움말 참고</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ZW3D 숨김 실행</strong></td>
+                        <td><span class="file-path">zw3dremote -hide</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>ZW3D 최소화 실행</strong></td>
+                        <td><span class="file-path">zw3dremote -minimized</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="icon-section">
+            <p>🚀 <strong>ZW3D 원격 명령 실행을 통해 자동화 워크플로우를 구축하고 생산성을 극대화하세요!</strong> 🚀</p>
+        </div>
+    </div>
+</body>
+</html>

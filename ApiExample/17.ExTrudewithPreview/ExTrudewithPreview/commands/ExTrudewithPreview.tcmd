@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/Template.xsd">
+    <template name="ExTrudewithPreview">
+        <property name="echo_obj">ExTrudewithPreviewEcho</property>
+        <property name="echo_switch">true</property>
+        <property name="function">ExTrudewithPreview</property>
+        <property name="init">ExTrudewithPreviewInit</property>
+        <parameters>
+            <parameter description="Profile P" luid="1" name="id1" type="entity">
+                <property name="eval">input_prf=1,</property>
+                <property name="inv_pick">true</property>
+                <property name="list">1</property>
+                <property name="options">/curve/Ecurve/profile/,no_qpick_echo,ent_extend, auto_enter_prf=1,input_prf,check_prf_open,pick_isect,</property>
+            </parameter>
+            <parameter description="start distance" luid="2" name="id2" type="distance"/>
+            <parameter description="end distance" luid="3" name="id3" type="distance"/>
+            <parameter description="Direction" luid="4" name="id4" type="point">
+                <property name="options">/direction/,get_dir, rev_dir,qpick_on, empty_ok</property>
+            </parameter>
+        </parameters>
+    </template>
+</templates>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schemas/Template.xsd">
+    <template name="Variable">
+        <property name="echo_obj">VariableEcho</property>
+        <property name="child">true</property>
+        <property name="parent_form">1</property>
+        <parameters>
+            <parameter description="variable name" luid="1" name="id1" type="string"/>
+            <parameter description="variable value" luid="2" name="id2" type="number">
+              <property name="callback">VariableCb</property>
+            </parameter>
+        </parameters>
+    </template>
+</templates>
