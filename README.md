@@ -5,3 +5,4 @@
 ## 📁 구조
 - `headers/`: ZW3D API 헤더 파일들 (기능별 분류)
 - `ApiExample/`: 실제 사용 예제 코드 폴더
+- `pdf/`: API 가이드 및 참조 문서
