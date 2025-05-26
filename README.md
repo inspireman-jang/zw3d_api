@@ -4,16 +4,4 @@
 
 ## 📁 구조
 - `headers/`: ZW3D API 헤더 파일들 (기능별 분류)
-- `knowledge_base/`: GPTs 학습용 구조화된 데이터
-- `examples/`: 실제 사용 예제 코드
-- `documentation/`: API 가이드 및 참조 문서
-
-## 🚀 지원 기능
-- 3D 모델링 자동화
-- 도면 생성 및 관리
-- 어셈블리 조작
-- CAM 작업 자동화
-- 사용자 인터페이스 개발
-
-## 📖 API 버전
-ZW3D API Version: 2905
+- `ApiExample/`: 실제 사용 예제 코드 폴더
